@@ -1,50 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Project Documentation</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            display: flex;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
         }
-        header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-        }
-        footer {
+        nav {
+            width: 200px;
+            height: 100vh;
             background-color: #333;
             color: #fff;
-            padding: 10px;
-            text-align: center;
+            padding: 20px;
             position: fixed;
-            bottom: 0;
-            width: 100%;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            margin-left: 200px;
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Titolo del Sito</h1>
-    </header>
+    <nav>
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#usage">Usage</a></li>
+        </ul>
+    </nav>
     
     <main>
-        <h2>Contenuto Principale</h2>
-        <p>Questo è un esempio di file HTML casuale.</p>
-        <p>Puoi modificarlo e adattarlo secondo le tue esigenze.</p>
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>This is the introduction section.</p>
+        </section>
+        
+        <section id="installation">
+            <h2>Installation</h2>
+            <p>This is the installation section.</p>
+        </section>
+        
+        <section id="usage">
+            <h2>Usage</h2>
+            <p>This is the usage section.</p>
+        </section>
     </main>
-    
-    <footer>
-        <p>Footer - © 2024</p>
-    </footer>
 </body>
 </html>

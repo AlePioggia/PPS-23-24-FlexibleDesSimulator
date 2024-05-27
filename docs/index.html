@@ -4,21 +4,37 @@
     <title>Project Documentation</title>
     <style>
         body {
-            display: flex;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
         }
         nav {
             width: 200px;
             height: 100vh;
             background-color: #333;
             color: #fff;
-            padding: 20px;
             position: fixed;
+            overflow-y: auto;
+            transition: width 0.3s;
+            z-index: 1000;
+        }
+        nav:hover {
+            width: 250px;
+        }
+        nav ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
         }
         nav a {
+            display: block;
             color: #fff;
             text-decoration: none;
+            padding: 15px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #555;
         }
         main {
             margin-left: 200px;
@@ -34,8 +50,12 @@
         <h2>Contents</h2>
         <ul>
             <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#installation">Installation</a></li>
-            <li><a href="#usage">Usage</a></li>
+            <li><a href="#development-methodology">Development Methodology</a></li>
+            <li><a href="#system-analysis">System Analysis</a></li>
+            <li><a href="#architectural-design">Architectural Design</a></li>
+            <li><a href="#detailed-design">Detailed Design</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+            <li><a href="#conclusions">Conclusions</a></li>
         </ul>
     </nav>
     
@@ -45,14 +65,34 @@
             <p>This is the introduction section.</p>
         </section>
         
-        <section id="installation">
-            <h2>Installation</h2>
-            <p>This is the installation section.</p>
+        <section id="development-methodology">
+            <h2>Development Methodology</h2>
+            <p>This is the development methodology section.</p>
         </section>
         
-        <section id="usage">
-            <h2>Usage</h2>
-            <p>This is the usage section.</p>
+        <section id="system-analysis">
+            <h2>System Analysis</h2>
+            <p>This is the system analysis section.</p>
+        </section>
+        
+        <section id="architectural-design">
+            <h2>Architectural Design</h2>
+            <p>This is the architectural design section.</p>
+        </section>
+        
+        <section id="detailed-design">
+            <h2>Detailed Design</h2>
+            <p>This is the detailed design section.</p>
+        </section>
+        
+        <section id="implementation">
+            <h2>Implementation</h2>
+            <p>This is the implementation section.</p>
+        </section>
+        
+        <section id="conclusions">
+            <h2>Conclusions</h2>
+            <p>This is the conclusions section.</p>
         </section>
     </main>
 </body>

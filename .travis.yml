@@ -1,0 +1,10 @@
+language: scala
+scala:
+  - 2.13.8 
+
+script:
+  - sbt test
+
+branches:
+  only:
+    - main

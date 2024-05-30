@@ -8,6 +8,7 @@ trait Event:
 trait Simulator:
     def schedule(event: Event): Unit
     def run(): Unit
+    def step(): Unit
     def handleEvent(event: Event): Unit
 
 class BasicSimulator extends Simulator:
@@ -18,7 +19,11 @@ class BasicSimulator extends Simulator:
         eventQueue.enqueue(event)
     
     def run(): Unit = 
-        while eventQueue.nonEmpty do 
+        while eventQueue.nonEmpty do
+            step()
+
+    def step(): Unit = 
+        if eventQueue.nonEmpty then
             val nextEvent = eventQueue.dequeue()
             currentSimTime = nextEvent.time
             handleEvent(nextEvent)

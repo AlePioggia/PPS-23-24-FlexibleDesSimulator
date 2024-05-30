@@ -27,7 +27,7 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         val robot = Robot(1)(Position(0, 0))(Direction.North)
         env.addRobot(robot)
         env.robots should contain(robot)
-        env.isPositionValid(Position(0, 0)) should be(true)
+        env.isPositionValid(Position(0, 0)) should be(false)
     }
 
     it should "not add a robot with an invalid position" in {

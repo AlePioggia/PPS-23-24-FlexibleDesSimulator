@@ -21,4 +21,12 @@ case class Environment (val width: Int, val height: Int, val robots: Set[Robot] 
     def isPositionValid(pos: Position): Boolean =
         val (x, y) = (pos.x, pos.y)
         x >= 0 && x < width && y >= 0 && y < height
-
+    
+    def moveRobot(robot: Robot): Unit =
+        val nextPos = robot.nextPosition()
+        if isPositionValid(nextPos) then
+            grid(robot.pos.x)(robot.pos.y) = None
+            robot.move()
+            grid(robot.pos.x)(robot.pos.y) = Some(robot)
+        else
+            throw new IllegalArgumentException("Invalid position")

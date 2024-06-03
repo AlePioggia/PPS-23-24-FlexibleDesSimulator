@@ -15,8 +15,8 @@ object App:
     val environment = new Environment(10, 10, robots)
     val simulator = new RobotSwarmSimulator
 
-    val robot1 = new Robot(1)(new Position(0, 0))(Direction.North)
-    val robot2 = new Robot(2)(new Position(9, 9))(Direction.South)
+    val robot1 = Robot(1)(new Position(0, 0))(Direction.North)
+    val robot2 = Robot(2)(new Position(9, 9))(Direction.South)
     robots.add(robot1)
     robots.add(robot2)
     environment.addRobot(robot1)

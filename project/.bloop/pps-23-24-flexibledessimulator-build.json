@@ -213,7 +213,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "C:\\Users\\alexp\\AppData\\Local\\Coursier\\cache\\arc\\https\\github.com\\adoptium\\temurin17-binaries\\releases\\download\\jdk-17%252B35\\OpenJDK17-jdk_x64_windows_hotspot_17_35.zip\\jdk-17+35",
+                "home": "C:\\Program Files\\Java\\jdk-19",
                 "options": [
                     "-Duser.dir=C:\\Users\\alexp\\OneDrive\\Desktop\\PPS-23-24-FlexibleDesSimulator\\project"
                 ]
@@ -222,7 +222,7 @@
                 
             ],
             "runtimeConfig": {
-                "home": "C:\\Users\\alexp\\AppData\\Local\\Coursier\\cache\\arc\\https\\github.com\\adoptium\\temurin17-binaries\\releases\\download\\jdk-17%252B35\\OpenJDK17-jdk_x64_windows_hotspot_17_35.zip\\jdk-17+35",
+                "home": "C:\\Program Files\\Java\\jdk-19",
                 "options": [
                     "-Duser.dir=C:\\Users\\alexp\\OneDrive\\Desktop\\PPS-23-24-FlexibleDesSimulator\\project"
                 ]

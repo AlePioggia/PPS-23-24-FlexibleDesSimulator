@@ -9,7 +9,3 @@ class RobotSwarmController(var environment: Environment, val simulator: RobotSwa
     def initialize(): Unit =
         view.initializeUI()
         view.drawGrid()
-
-    def stepSimulation(): Unit =
-        simulator.step()
-        view.drawGrid()

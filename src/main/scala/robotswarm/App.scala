@@ -9,8 +9,8 @@ import utils.Direction
 import model.Robot
 import model.AllRobotMovesEvent
 
-object App {
-  def main(args: Array[String]): Unit = {
+object App:
+  def main(args: Array[String]): Unit =
     val robots: Set[Robot] = scala.collection.mutable.Set.empty
     val environment = new Environment(10, 10, robots)
     val simulator = new RobotSwarmSimulator
@@ -22,16 +22,13 @@ object App {
     environment.addRobot(robot1)
     environment.addRobot(robot2)
 
-    for (i <- 0 until 5) {
+    for (i <- 0 until 5)
       val time = i * 1.0
       simulator.schedule(new AllRobotMovesEvent(time, environment))
-    }
 
     val view = new RobotSwarmView(environment, simulator)
     val controller = new RobotSwarmController(environment, simulator, view)
 
     controller.initialize()
     view.setVisible(true)
-  }
-}
 

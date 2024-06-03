@@ -1,4 +1,4 @@
-package robotswarm
+package robotswarm.model
 
 import core.{Event, BasicSimulator}
 import robotswarm.model.{Robot, Environment}

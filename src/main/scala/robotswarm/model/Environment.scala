@@ -9,7 +9,7 @@ trait Grid:
 
 case class Environment (val width: Int, val height: Int, val robots: Set[Robot] = Set.empty) extends Grid:
     protected val grid = Array.fill[Option[Robot]](width, height)(None)
-    private val pickupObjects = Array.fill[Boolean](width, height)(false)
+    protected val pickupObjects = Array.fill[Boolean](width, height)(false)
 
     def addRobot(robot: Robot): Unit =
         if isPositionValid(robot.pos) then
@@ -34,7 +34,7 @@ case class Environment (val width: Int, val height: Int, val robots: Set[Robot] 
         if isPositionValid(nextPos) then
             removeRobot(robot)
             robot.move()
-            if isPickupObj(nextPos) then robot.pickUp()
+            if isPickupObj(nextPos) then pickupObj(robot)
             placeRobot(robot)
         else
             throw new IllegalArgumentException("Invalid position")
@@ -51,3 +51,7 @@ case class Environment (val width: Int, val height: Int, val robots: Set[Robot] 
     private def placeRobot(robot: Robot): Unit = grid(robot.pos.x)(robot.pos.y) = Some(robot)
 
     private def removeRobot(robot: Robot): Unit = grid(robot.pos.x)(robot.pos.y) = None
+
+    private def pickupObj(robot: Robot): Unit =
+        robot.pickUp()
+        removePickupObj(robot.pos)

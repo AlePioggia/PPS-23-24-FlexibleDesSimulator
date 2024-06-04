@@ -63,4 +63,17 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         env.moveRobot(robot)
         env.isRobotCarrying(1) should be (true)
     }
+
+    it should "correctly place a random amount of objects on the grid" in {
+        val env = new Environment(10, 10)
+        env.placeRandomPickupObjs(10)
+        env.pickupObjects.flatten.count(_ == true) should be (10)
+    }
+
+    it should "refuse to place more objects than the grid can hold" in {
+        val env = new Environment(10, 10)
+        assertThrows[IllegalArgumentException] {
+            env.placeRandomPickupObjs(101)
+        }
+    }
 }

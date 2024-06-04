@@ -95,7 +95,41 @@
         
         <section id="system-analysis">
             <h2>System Analysis</h2>
-            <p>This is the system analysis section.</p>
+            <p>The requirements analysis phase is crucial for understanding the needs and expectations of the stakeholders, guiding the subsequent stages of system development.</p>
+
+            <h3>Business requirements</h3>
+            <ul>
+                <li><strong>Provide a solid discrete event simulator</strong> which allows users to experiment without encountering problems</li>
+                <li><strong>Client-side</strong> create an application that can be seen as a valide base for forks</li>
+            </ul>
+
+            <h3>Functional requirements</h3>
+            <ul>
+                <li><strong>Step-by-step</strong> simulation, every step is activated by the user via UI</li>
+                <li><strong>Real time</strong> stats and simulation state</li>
+                <li><strong>Pause</strong> and <strong>resume</strong> simulation</li>
+                <li><strong>Report</strong> stats on an external file, including parameters</li>
+                <li><strong>Graphical</strong> representation of the simulation</li>
+                <li><strong>Multiple</strong> swarm selection from toggle menu</li>
+                <li>
+                    <strong>Swarm</strong> parameters:
+                    <ul>
+                        <li>Number of agents</li>
+                        <li>Initial position</li>
+                        <li>Initial velocity</li>
+                        <li>Initial direction</li>
+                        <li>Initial energy</li>
+                        <li>Initial state</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Non-functional requirements</h3>
+            <ul>
+                <li><strong>Raw</strong> interface, it has to work correctly but it's not the main focus</li>
+                <li><strong>Good</strong> performance on simulations with small amount of objects (single thread execution)</li>
+            </ul>
+
         </section>
         
         <section id="architectural-design">

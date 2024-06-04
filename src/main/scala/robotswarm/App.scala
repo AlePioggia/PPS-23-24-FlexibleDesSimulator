@@ -22,6 +22,8 @@ object App:
     robots.add(robot2)
     environment.addRobot(robot1)
     environment.addRobot(robot2)
+    environment.addPickupObj(Position(0, 2))
+    environment.addPickupObj(Position(9, 7))
 
     for (i <- 0 until 8)
       val time = i * 1.0

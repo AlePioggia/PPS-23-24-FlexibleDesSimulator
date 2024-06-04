@@ -31,7 +31,6 @@ class RobotSimulatorSpec extends AnyFlatSpec with Matchers {
         robot.pos should be(Position(0, 4))
         robot.move()
         robot.pos should be(Position(0, 4))
-
     }
 
     "A Robot" should "calculate the next position correctly" in {
@@ -39,5 +38,13 @@ class RobotSimulatorSpec extends AnyFlatSpec with Matchers {
         robot.nextPosition() should be(Position(0, 1))
         robot.setDirection(Direction.East)
         robot.nextPosition() should be(Position(1, 0))
+    }
+
+    "A Robot" should "be able to carry a single object" in {
+        val robot = Robot(1)(Position(0, 0))(Direction.North)
+        robot.pickUp()
+        robot.isCarrying should be(true)
+        robot.drop()
+        robot.isCarrying should be(false)
     }
 }

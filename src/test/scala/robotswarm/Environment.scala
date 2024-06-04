@@ -45,4 +45,22 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         env.moveRobot(robot)
         robot.pos should be(Position(0, 1))
     }
+
+    it should "place an object correctly" in {
+        val env = new Environment(10, 10)
+        env.addPickupObj(Position(0, 0))
+        env.isPickupObj(Position(0, 0)) should be(true)
+        env.removePickupObj(Position(0, 0))
+        env.isPickupObj(Position(0, 0)) should be (false)
+    }
+
+    it should "pick an object up correctly" in {
+        val env = new Environment(10, 10)
+        val robot = Robot(1)(Position(0, 0))(Direction.North)
+        env.isRobotCarrying(1) should be (false)
+        env.addRobot(robot)
+        env.addPickupObj(Position(0, 1))
+        env.moveRobot(robot)
+        env.isRobotCarrying(1) should be (true)
+    }
 }

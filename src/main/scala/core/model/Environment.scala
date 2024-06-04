@@ -11,7 +11,7 @@ trait Grid:
     def addObject(pos: Position): Unit
     def removeObject(pos: Position): Unit
 
-case class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.empty) extends Grid:
+class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.empty) extends Grid:
     protected val grid = Array.fill[Option[Agent]](width, height)(None)
     var objects = Array.fill[Boolean](width, height)(false)
 
@@ -38,11 +38,17 @@ case class Environment(val width: Int, val height: Int, val agents: Set[Agent] =
         if isPositionValid(nextPos) then
             removeAgent(agent)
             agent.move()
-            if isObjectAt(nextPos) then agent.interactWithObject()
+            if isObjectAt(nextPos) then interactWithObject(agent)
             placeAgent(agent)
         else
             throw new IllegalArgumentException("Invalid position")
 
+    def getAgentAt(pos: Position): Option[Agent] =
+        if grid(pos.x)(pos.y).isDefined then grid(pos.x)(pos.y)
+        else None
+
     private def placeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = Some(agent)
 
     private def removeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = None
+
+    def interactWithObject(agent: Agent): Unit = agent.interactWithObject()

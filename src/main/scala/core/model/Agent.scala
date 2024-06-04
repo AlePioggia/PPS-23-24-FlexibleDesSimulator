@@ -12,4 +12,3 @@ trait Agent:
     def nextPosition(): Position = calculateNextPosition()
     def interactWithObject(): Unit = ()
     protected def calculateNextPosition(): Position = dir.nextPosition(pos)
-

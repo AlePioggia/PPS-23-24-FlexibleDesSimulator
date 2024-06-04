@@ -6,7 +6,9 @@ import java.awt._
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import robotswarm.controller.RobotSwarmController
-import robotswarm.model.{Environment, RobotSwarmSimulator}
+import robotswarm.model.{RobotSwarmSimulator}
+import core.model.Environment
+import robotswarm.model.Robot
 import utils.Position
 
 class RobotSwarmView(val environment: Environment, val simulator: RobotSwarmSimulator) extends JFrame:
@@ -29,16 +31,16 @@ class RobotSwarmView(val environment: Environment, val simulator: RobotSwarmSimu
     } {
       val cell: JPanel = new JPanel
       val pos = new Position(x, y)
-      val robot = environment.getRobotAt(pos)
+      val robot: Option[Robot] = environment.getAgentAt(pos).map(_.asInstanceOf[Robot])
       robot match {
         case Some(r) => if r.isCarrying then cell.add(new JLabel("C"))
         case None => ()
       }
-      cell.setBackground(environment.getRobotAt(pos).isDefined match {
+      cell.setBackground(environment.getAgentAt(pos).isDefined match {
         case true => Color.RED
         case false => Color.WHITE
       })
-      environment.isPickupObj(pos) match {
+      environment.isObjectAt(pos) match {
         case true => cell.setBackground(Color.GREEN)
         case false => ()
       }

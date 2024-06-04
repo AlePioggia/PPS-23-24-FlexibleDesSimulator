@@ -1,29 +1,20 @@
 package robotswarm.model
 
 import utils.{Position, Direction}
+import core.model.Agent
 
 enum Battery(var steps: Int):
   case Full extends Battery(10)
   case Low extends Battery(4)
 
-trait Robot:
-  val id: Int
-  var pos: Position
-  var dir: Direction
+trait Robot extends Agent:
   var isCarrying: Boolean = false
-  def move(): Unit
-  def setDirection(dest: Direction): Unit
-  def nextPosition(): Position
   def pickUp(): Unit
   def drop(): Unit
 
 trait BaseRobot extends Robot:
-  def move(): Unit = pos = calculateNextPosition()
-  def setDirection(dest: Direction): Unit = dir = dest
-  def nextPosition(): Position = calculateNextPosition()
   def pickUp(): Unit = isCarrying = true
   def drop(): Unit = isCarrying = false
-  protected def calculateNextPosition(): Position = dir.nextPosition(pos)
 
 trait BatteryPowered extends Robot:
   var battery: Battery

@@ -10,20 +10,11 @@ import robotswarm.model.{RobotSwarmSimulator}
 import core.model.Environment
 import robotswarm.model.Robot
 import utils.Position
+import core.view.View
+import robotswarm.model.RobotEnvironment
 
-class RobotSwarmView(val environment: Environment, val simulator: RobotSwarmSimulator) extends JFrame:
-  private val gridPanel: JPanel = new JPanel
-
-  def initializeUI(): Unit = 
-    setTitle("Robot Swarm Simulator")
-    setSize(800, 800)
-    setLayout(new BorderLayout())
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    gridPanel.setLayout(new GridLayout(environment.height, environment.width))
-    add(gridPanel, BorderLayout.CENTER)
-    addButton("Step", (e: ActionEvent) => {simulator.step(); drawGrid()}, BorderLayout.SOUTH)
-
-  def drawGrid(): Unit =
+class RobotSwarmView(override val environment: Environment, override val simulator: RobotSwarmSimulator) extends View(environment, simulator):
+  override def drawGrid(): Unit =
     gridPanel.removeAll()
     for {
       y <- 0 until environment.height
@@ -49,8 +40,3 @@ class RobotSwarmView(val environment: Environment, val simulator: RobotSwarmSimu
     }
     gridPanel.revalidate()
     gridPanel.repaint()
-
-  private def addButton(name: String, al: ActionListener, bLayout: String): Unit =
-    val b: JButton = new JButton(name)
-    b.addActionListener(al)
-    add(b, bLayout)

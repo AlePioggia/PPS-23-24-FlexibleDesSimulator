@@ -2,10 +2,8 @@ package robotswarm.controller
 
 //implement controller based on model and view
 import robotswarm.model.{RobotSwarmSimulator, RobotMoveEvent, AllRobotMovesEvent}
-import core.model.Environment
 import robotswarm.view.RobotSwarmView
+import robotswarm.model.RobotEnvironment
+import core.controller.Controller
 
-class RobotSwarmController(var environment: Environment, val simulator: RobotSwarmSimulator, val view: RobotSwarmView):
-    def initialize(): Unit =
-        view.initializeUI()
-        view.drawGrid()
+class RobotSwarmController(environment: RobotEnvironment, override val simulator: RobotSwarmSimulator, override val view: RobotSwarmView) extends Controller(environment, simulator, view)

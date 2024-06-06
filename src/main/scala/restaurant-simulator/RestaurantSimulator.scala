@@ -1,12 +1,12 @@
 package restaurant.simulator
 
-import core.Event
+import core.simulator.{Event, BasicSimulator}
 
 case class Customer(id: Int)
 case class ArrivalEvent(time: Double, customer: Customer) extends Event
 case class DepartureEvent(time: Double, customer: Customer) extends Event
 
-class RestaurantSimulator extends core.BasicSimulator:
+class RestaurantSimulator extends BasicSimulator:
     var numCustomers = 0
     var currentCustomers: Set[Customer] = Set[Customer]()
 

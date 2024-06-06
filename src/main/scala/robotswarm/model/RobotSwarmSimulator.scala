@@ -1,6 +1,6 @@
 package robotswarm.model
 
-import core.{Event, BasicSimulator}
+import core.simulator.{Event, BasicSimulator}
 import robotswarm.model.{Robot} 
 
 case class RobotMoveEvent(time: Double, robot: Robot, environment: RobotEnvironment) extends Event

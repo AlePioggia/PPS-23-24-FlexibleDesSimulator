@@ -1,4 +1,4 @@
-package core
+package core.simulator
 
 import scala.collection.mutable.PriorityQueue
 

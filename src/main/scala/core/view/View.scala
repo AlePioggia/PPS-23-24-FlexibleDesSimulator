@@ -2,7 +2,7 @@ package core.view
 
 import javax.swing.JFrame
 import core.model.Environment
-import core.Simulator
+import core.simulator.Simulator
 import java.awt.event.ActionListener
 import javax.swing.JPanel
 import java.awt.BorderLayout

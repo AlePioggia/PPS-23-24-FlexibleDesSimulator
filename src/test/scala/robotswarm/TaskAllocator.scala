@@ -10,7 +10,7 @@ import robotswarm.model.ai.TaskAllocator
 
 class TaskAllocatorSpec extends AnyFlatSpec with Matchers {
     it should "assign a task to each robot to the closest object" in {
-        val robots = Set(Robot(1)(Position(0, 0))(Direction.North), Robot(2)(Position(2, 2))(Direction.South))
+        val robots = scala.collection.mutable.Set(Robot(1)(Position(0, 0))(Direction.North), Robot(2)(Position(2, 2))(Direction.South))
         val objects = List(Position(1, 1), Position(3, 3))
 
         val assignments = TaskAllocator.assignTasks(robots, objects)
@@ -24,7 +24,7 @@ class TaskAllocatorSpec extends AnyFlatSpec with Matchers {
     }
 
     it should "handle no robots" in {
-        val robots = Set.empty[Robot]
+        val robots = scala.collection.mutable.Set.empty[Robot]
         val objects = List(Position(1, 1), Position(3, 3))
 
         val assignments = TaskAllocator.assignTasks(robots, objects)
@@ -33,7 +33,7 @@ class TaskAllocatorSpec extends AnyFlatSpec with Matchers {
     }
 
     it should "handle no objects" in {
-        val robots = Set(Robot(1)(Position(0, 0))(Direction.North), Robot(2)(Position(2, 2))(Direction.South))
+        val robots = scala.collection.mutable.Set(Robot(1)(Position(0, 0))(Direction.North), Robot(2)(Position(2, 2))(Direction.South))
         val objects = List.empty[Position]
 
         val assignments = TaskAllocator.assignTasks(robots, objects)

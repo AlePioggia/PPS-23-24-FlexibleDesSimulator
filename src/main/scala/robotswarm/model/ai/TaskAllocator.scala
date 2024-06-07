@@ -6,7 +6,7 @@ import utils.Position
 import scala.compiletime.ops.double
 
 object TaskAllocator:
-    def assignTasks(robots: Set[Robot], objects: List[Position]): Map[Robot, Position] = 
+    def assignTasks(robots: scala.collection.mutable.Set[Robot], objects: List[Position]): Map[Robot, Position] = 
         val assignments = mutable.Map[Robot, Position]()
         val availableObjects = objects.to(mutable.Queue)
 

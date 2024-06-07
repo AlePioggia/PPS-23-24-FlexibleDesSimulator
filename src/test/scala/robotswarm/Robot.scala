@@ -15,10 +15,10 @@ class RobotSimulatorSpec extends AnyFlatSpec with Matchers {
     } 
 
     "A Robot" should "correctly handle move events" in {
-        val robot = Robot(1)(Position(0, 0))(Direction.North)
+        val robot = Robot(1)(Position(0, 0))(Direction.South)
         robot.move()
         robot.pos should be(Position(0, 1))
-        robot.dir should be(Direction.North)
+        robot.dir should be(Direction.South)
         robot.setDirection(Direction.East)
         robot.dir should be (Direction.East)
         robot.move()
@@ -26,7 +26,7 @@ class RobotSimulatorSpec extends AnyFlatSpec with Matchers {
     }
 
     "A Robot" should "stop accordingly if low on battery" in {
-        val robot = Robot(1)(Position(0, 0))(Direction.North)(Battery.Low) // low = 4 steps
+        val robot = Robot(1)(Position(0, 0))(Direction.South)(Battery.Low) // low = 4 steps
         for (i <- 0 until 4) robot.move()     
         robot.pos should be(Position(0, 4))
         robot.move()
@@ -34,10 +34,10 @@ class RobotSimulatorSpec extends AnyFlatSpec with Matchers {
     }
 
     "A Robot" should "calculate the next position correctly" in {
-        val robot = Robot(1)(Position(0, 0))(Direction.North)
-        robot.nextPosition() should be(Position(0, 1))
+        val robot = Robot(1)(Position(0, 1))(Direction.North)
+        robot.nextPosition() should be(Position(0, 0))
         robot.setDirection(Direction.East)
-        robot.nextPosition() should be(Position(1, 0))
+        robot.nextPosition() should be(Position(1, 1))
     }
 
     "A Robot" should "be able to carry a single object" in {

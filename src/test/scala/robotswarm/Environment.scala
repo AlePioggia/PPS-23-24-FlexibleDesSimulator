@@ -9,20 +9,12 @@ import utils.Direction
 
 class EnvironmentSpec extends AnyFlatSpec with Matchers {
 
-    it should "move a robot correctly" in {
-        val env = new RobotEnvironment(10, 10)
-        val robot = Robot(1)(Position(0, 0))(Direction.North)
-        env.addAgent(robot)
-        env.moveAgent(robot)
-        robot.pos should be(Position(0, 1))
-    }
-
     it should "pick an object up correctly" in {
         val env = new RobotEnvironment(10, 10)
-        val robot = Robot(1)(Position(0, 0))(Direction.North)
+        val robot = Robot(1)(Position(0, 1))(Direction.North)
         env.isRobotCarrying(1) should be (false)
         env.addAgent(robot)
-        env.addObject(Position(0, 1))
+        env.addObject(Position(0, 0))
         env.moveAgent(robot)
         env.isRobotCarrying(1) should be (true)
     }

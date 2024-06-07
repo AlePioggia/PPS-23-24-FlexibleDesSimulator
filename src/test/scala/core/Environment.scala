@@ -43,10 +43,10 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
 
     it should "move a robot correctly" in {
         val env = new Environment(10, 10)
-        val agent = TestAgent(1)(Position(0, 0))(Direction.North)
+        val agent = TestAgent(1)(Position(0, 1))(Direction.North)
         env.addAgent(agent)
         env.moveAgent(agent)
-        agent.pos should be(Position(0, 1))
+        agent.pos should be(Position(0, 0))
     }
 
     it should "place an object correctly" in {

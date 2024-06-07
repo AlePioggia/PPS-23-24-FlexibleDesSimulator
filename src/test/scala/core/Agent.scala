@@ -16,21 +16,21 @@ class AgentSimulatorSpec extends AnyFlatSpec with Matchers {
     } 
 
     "An Agent" should "correctly handle move events" in {
-        val agent = TestAgent(1)(Position(0, 0))(Direction.North)
+        val agent = TestAgent(1)(Position(0, 1))(Direction.North)
         agent.move()
-        agent.pos should be(Position(0, 1))
+        agent.pos should be(Position(0, 0))
         agent.dir should be(Direction.North)
         agent.setDirection(Direction.East)
         agent.dir should be (Direction.East)
         agent.move()
-        agent.pos should be(Position(1, 1))
+        agent.pos should be(Position(1, 0))
     }
 
     "An Agent" should "calculate the next position correctly" in {
-        val agent = TestAgent(1)(Position(0, 0))(Direction.North)
-        agent.nextPosition() should be(Position(0, 1))
+        val agent = TestAgent(1)(Position(0, 1))(Direction.North)
+        agent.nextPosition() should be(Position(0, 0))
         agent.setDirection(Direction.East)
-        agent.nextPosition() should be(Position(1, 0))
+        agent.nextPosition() should be(Position(1, 1))
     }
 
     "An Agent" should "be able to interact with an object" in {

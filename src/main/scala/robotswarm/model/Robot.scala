@@ -9,6 +9,7 @@ enum Battery(var steps: Int):
 
 trait Robot extends Agent:
   var isCarrying: Boolean = false
+  var goal: Position = _
   def pickUp(): Unit
   def drop(): Unit
 

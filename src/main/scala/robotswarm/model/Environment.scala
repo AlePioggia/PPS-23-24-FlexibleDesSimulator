@@ -9,9 +9,8 @@ import core.model.Grid
 class RobotEnvironment(width: Int, height: Int) extends Environment(width: Int, height: Int) with Grid:
     override def interactWithObject(agent: Agent): Unit = agent match
         case robot: Robot =>
-            robot.pickUp()
-            removeObject(robot.pos)
-
+            if (robot.pos == robot.goal) then {robot.pickUp(); removeObject(robot.pos)}
+    
     def isRobotCarrying(id: Int): Boolean =
         agents.find(_.id == id).map(_ match
             case robot: Robot => robot.isCarrying

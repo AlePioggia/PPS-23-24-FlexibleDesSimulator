@@ -52,3 +52,13 @@ class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.
     private def removeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = None
 
     def interactWithObject(agent: Agent): Unit = agent.interactWithObject()
+
+    def neighbors(pos: Position): List[Position] =
+        val (x, y) = (pos.x, pos.y)
+        val neighbors = List(
+            Position(x - 1, y),
+            Position(x + 1, y),
+            Position(x, y - 1),
+            Position(x, y + 1)
+        )
+        neighbors.filter(isPositionValid)

@@ -56,5 +56,18 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         env.removeObject(Position(0, 0))
         env.isObjectAt(Position(0, 0)) should be (false)
     }
+
+    it should "indicate correctly the neighbors of a position" in {
+        val env = new Environment(10, 10)
+        env.neighbors(Position(0, 0)) should contain theSameElementsAs List(
+            Position(0, 1), Position(1, 0)
+        )
+        env.neighbors(Position(9, 9)) should contain theSameElementsAs List(
+            Position(9, 8), Position(8, 9)
+        )
+        env.neighbors(Position(5, 5)) should contain theSameElementsAs List(
+            Position(5, 4), Position(4, 5), Position(5, 6), Position(6, 5)
+        )
+    }
 }
 

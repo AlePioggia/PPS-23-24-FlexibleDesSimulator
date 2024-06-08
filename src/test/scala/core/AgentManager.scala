@@ -33,4 +33,13 @@ class AgentManagerSpec extends AnyFlatSpec with Matchers {
         env.removeAgent(agent)
         env.agents should not contain agent
     }
+
+
+    it should "move an agent correctly" in {
+        val env = AgentManager(10, 10)
+        val agent = TestAgent(1)(Position(0, 1))(Direction.North)
+        env.addAgent(agent)
+        env.moveAgent(agent)
+        agent.pos should be(Position(0, 0))
+    }
 }

@@ -13,7 +13,7 @@ import utils.Position
 import core.view.View
 import robotswarm.model.RobotEnvironment
 
-class RobotSwarmView(override val environment: Environment, override val simulator: RobotSwarmSimulator) extends View(environment, simulator):
+class RobotSwarmView(override val environment: RobotEnvironment, override val simulator: RobotSwarmSimulator) extends View(environment, simulator):
   override def drawGrid(): Unit =
     gridPanel.removeAll()
     for {
@@ -22,16 +22,16 @@ class RobotSwarmView(override val environment: Environment, override val simulat
     } {
       val cell: JPanel = new JPanel
       val pos = new Position(x, y)
-      val robot: Option[Robot] = environment.getAgentAt(pos).map(_.asInstanceOf[Robot])
+      val robot: Option[Robot] = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Robot])
       robot match {
         case Some(r) => if r.isCarrying then cell.add(new JLabel("C"))
         case None => ()
       }
-      cell.setBackground(environment.getAgentAt(pos).isDefined match {
+      cell.setBackground(environment.agentManager.getAgentAt(pos).isDefined match {
         case true => Color.RED
         case false => Color.WHITE
       })
-      environment.isObjectAt(pos) match {
+      environment.objectManager.isObjectAt(pos) match {
         case true => cell.setBackground(Color.GREEN)
         case false => ()
       }

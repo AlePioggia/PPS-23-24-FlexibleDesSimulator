@@ -27,19 +27,20 @@ object App:
     robots.add(robot2)
     robots.add(robot3)
     robots.add(robot4)
-    environment.addAgent(robot1)
-    environment.addAgent(robot2)
-    environment.addAgent(robot3)
-    environment.addAgent(robot4)
+    environment.agentManager.addAgent(robot1)
+    environment.agentManager.addAgent(robot2)
+    environment.agentManager.addAgent(robot3)
+    environment.agentManager.addAgent(robot4)
+    println(environment.agentManager.agents)
     val objects = List(Position(0, 2), Position(9, 7), Position(3, 3), Position(4, 5))
     
     for obj <- objects do
-      environment.addObject(obj)
+      environment.objectManager.addObject(obj)
 
     var setup = simulator.setup(robots, environment, objects)
     println(setup)
 
-    for until <- 1 to 10 do
+    for until <- 1 to 20 do
       simulator.schedule(AllRobotMovesEvent(0, environment))
 
     val view = new RobotSwarmView(environment, simulator)

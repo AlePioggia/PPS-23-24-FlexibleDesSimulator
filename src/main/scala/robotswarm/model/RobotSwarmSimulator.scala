@@ -19,7 +19,7 @@ class RobotSwarmSimulator extends BasicSimulator:
         case RobotMoveEvent(_, robot, environment) =>
             environment.moveAgent(robot)
         case AllRobotMovesEvent(_, environment) =>
-            environment.agents.foreach(robot => {
+            environment.agentManager.agents.foreach(robot => {
                 val iterator = paths(robot.id)
                 if iterator.hasNext then
                     val direction: Direction = iterator.next()

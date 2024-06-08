@@ -16,11 +16,8 @@ class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.
     var objects = Array.fill[Boolean](width, height)(false)
 
     def addAgent(agent: Agent): Unit =
-        if isPositionValid(agent.pos) then
-            agents += agent
-            placeAgent(agent)
-        else
-            throw new IllegalArgumentException("Invalid position")
+        if isPositionValid(agent.pos) then {agents += agent; placeAgent(agent)}
+        else throw new IllegalArgumentException("Invalid position")
 
     def addObject(pos: Position): Unit = objects(pos.x)(pos.y) = true 
 
@@ -30,8 +27,7 @@ class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.
         val (x, y) = (pos.x, pos.y)
         x >= 0 && x < width && y >= 0 && y < height && grid(pos.x)(pos.y).isEmpty
 
-    def isObjectAt(pos: Position): Boolean =
-        objects(pos.x)(pos.y)
+    def isObjectAt(pos: Position): Boolean = objects(pos.x)(pos.y)
 
     def objsPosList(): List[Position] =
         val objs = for
@@ -51,13 +47,7 @@ class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.
         else
             throw new IllegalArgumentException("Invalid position")
 
-    def getAgentAt(pos: Position): Option[Agent] =
-        if grid(pos.x)(pos.y).isDefined then grid(pos.x)(pos.y)
-        else None
-
-    private def placeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = Some(agent)
-
-    private def removeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = None
+    def getAgentAt(pos: Position): Option[Agent] = if grid(pos.x)(pos.y).isDefined then grid(pos.x)(pos.y) else None
 
     def interactWithObject(agent: Agent): Unit = agent.interactWithObject()
 
@@ -70,3 +60,7 @@ class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.
             Position(x, y + 1)
         )
         neighbors.filter(isPositionValid)
+
+    private def placeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = Some(agent)
+
+    private def removeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = None

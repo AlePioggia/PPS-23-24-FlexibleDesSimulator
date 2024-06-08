@@ -33,6 +33,14 @@ class Environment(val width: Int, val height: Int, val agents: Set[Agent] = Set.
     def isObjectAt(pos: Position): Boolean =
         objects(pos.x)(pos.y)
 
+    def objsPosList(): List[Position] =
+        val objs = for
+            x <- 0 until width
+            y <- 0 until height
+            if objects(x)(y)
+        yield Position(x, y)
+        objs.toList
+
     def moveAgent(agent: Agent): Unit =
         val nextPos = agent.nextPosition()
         if isPositionValid(nextPos) then

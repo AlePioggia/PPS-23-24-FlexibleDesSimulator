@@ -69,5 +69,15 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
             Position(5, 4), Position(4, 5), Position(5, 6), Position(6, 5)
         )
     }
+
+    it should "return all the objects, by displaying a list of positions" in {
+        val env = new Environment(10, 10)
+        env.addObject(Position(0, 0))
+        env.addObject(Position(0, 1))
+        env.addObject(Position(1, 0))
+        env.objsPosList() should contain theSameElementsAs List(
+            Position(0, 0), Position(0, 1), Position(1, 0)
+        )
+    }
 }
 

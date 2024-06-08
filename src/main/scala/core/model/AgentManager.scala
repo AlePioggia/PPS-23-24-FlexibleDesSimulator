@@ -12,6 +12,8 @@ class AgentManager(val width: Int, val height: Int):
         if isPositionValid(agent.pos) then {agents += agent; placeAgent(agent)}
         else throw IllegalArgumentException("Invalid position")
 
+    def removeAgent(agent: Agent): Unit = {agents -= agent; grid(agent.pos.x)(agent.pos.y) = None}
+    
     def isPositionValid(pos: Position): Boolean =
         pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height && grid(pos.x)(pos.y).isEmpty
 

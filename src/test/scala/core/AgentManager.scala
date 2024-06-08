@@ -17,4 +17,20 @@ class AgentManagerSpec extends AnyFlatSpec with Matchers {
         env.agents should contain(agent)
         env.isPositionValid(Position(0, 0)) should be(false)
     }
+
+    it should "not add a robot with an invalid position" in {
+        val env = AgentManager(10, 10)
+        val agent = TestAgent(1)(Position(10, 10))(Direction.North)
+        assertThrows[IllegalArgumentException] {
+            env.addAgent(agent)
+        }
+    }
+
+    it should "remove an agent correctly" in {
+        val env = AgentManager(10, 10)
+        val agent = TestAgent(1)(Position(0, 0))(Direction.North)
+        env.addAgent(agent)
+        env.removeAgent(agent)
+        env.agents should not contain agent
+    }
 }

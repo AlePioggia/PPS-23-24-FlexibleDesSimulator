@@ -9,4 +9,12 @@ class PickupObjsManager extends AnyFlatSpec with Matchers {
         manager.addObject(utils.Position(0, 0))
         manager.isObjectAt(utils.Position(0, 0)) should be(true)
     }
+
+    it should "remove an object accordingly" in {
+        val manager = new core.model.PickupObjsManager(10, 10)
+        manager.addObject(utils.Position(0, 0))
+        manager.isObjectAt(utils.Position(0, 0)) should be(true)
+        manager.removeObject(utils.Position(0, 0))
+        manager.isObjectAt(utils.Position(0, 0)) should be(false)
+    }
 }

@@ -2,9 +2,9 @@ package `antsswarm`
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import ants$minusswarm.model.Ant
 import utils.Position
 import utils.Direction
+import antsswarm.model.Ant
 
 class AntSpec extends AnyFlatSpec with Matchers {
     "An Ant" should "be created correctly" in {

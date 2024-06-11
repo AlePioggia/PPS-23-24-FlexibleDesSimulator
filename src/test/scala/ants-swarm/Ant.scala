@@ -30,5 +30,5 @@ class AntSpec extends AnyFlatSpec with Matchers {
         ant.carryingFood should be(true)
         ant.interactWithObject()
         ant.carryingFood should be(true)
-    }   
+    }
 }

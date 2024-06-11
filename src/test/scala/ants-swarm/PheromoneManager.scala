@@ -13,5 +13,28 @@ class PheromoneManagerSpec extends AnyFlatSpec with Matchers {
         pheromoneManager.increasePheromone(Position(0, 0), 1)
         pheromoneManager.pheromone(Position(0, 0)) should be(11)
     }
+
+    it should "throw an exception when increasing pheromones out of bounds" in {
+        val pheromoneManager = PheromoneManager(10, 10)
+        assertThrows[IndexOutOfBoundsException] {
+            pheromoneManager.increasePheromone(Position(10, 10), 10)
+        }
+    }
+
+    it should "evaporate pheromones at the right rate" in {
+        val pheromoneManager = PheromoneManager(10, 10)
+        pheromoneManager.increasePheromone(Position(0, 0), 10)
+        pheromoneManager.increasePheromone(Position(0, 1), 15)
+        pheromoneManager.evaporatePheromones(0.5)
+        pheromoneManager.pheromone(Position(0, 0)) should be(5)
+        pheromoneManager.pheromone(Position(0, 1)) should be (7.5) 
+    }
+
+    it should "not evaporate pheromones below 0" in {
+        val pheromoneManager = PheromoneManager(10, 10)
+        pheromoneManager.increasePheromone(Position(0, 0), 1)
+        pheromoneManager.evaporatePheromones(1)
+        pheromoneManager.pheromone(Position(0, 0)) should be(0)
+    }
 }
 

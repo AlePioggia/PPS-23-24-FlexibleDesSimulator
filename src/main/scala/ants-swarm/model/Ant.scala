@@ -1,4 +1,4 @@
-package `ants-swarm`.model
+package `antsswarm`.model
 
 import core.model.Agent
 import utils.Position

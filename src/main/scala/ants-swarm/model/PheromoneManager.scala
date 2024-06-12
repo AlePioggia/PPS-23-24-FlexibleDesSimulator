@@ -16,4 +16,3 @@ class PheromoneManager(val width: Int, val height: Int):
 
     def pheromone(pos: Position): Double =
         pheromones(pos.x)(pos.y)
-

@@ -5,8 +5,9 @@ import core.model.Agent
 import utils.Position
 import utils.Direction
 import scala.util.Random
+import core.model.Grid
 
-class AntsEnvironment (width: Int, height: Int) extends Environment (width, height):
+class AntsEnvironment (width: Int, height: Int) extends Environment (width, height) with Grid:
     val pheromoneManager = PheromoneManager(width, height)
     var oldPos: Position = _
 
@@ -19,8 +20,9 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
             case ant: Ant =>
                 if ant.carryingFood then moveToNest(ant) else moveToFood(ant)
     
-    override def postMoveActions(): Unit =
-        pheromoneManager.increasePheromone(oldPos, 0.5)
+    override def postMoveActions(agent: Agent): Unit =
+        pheromoneManager.evaporatePheromones(0.1)
+        pheromoneManager.increasePheromone(agent.pos, 0.5)
 
     private def moveToNest(ant: Ant): Position = 
         val pos = ant.pos

@@ -11,7 +11,7 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
     override def moveAgent(agent: Agent): Unit = 
         agent match {
             case ant: Ant =>
-                val nextPos = if ant.carryingFood then moveToNest(ant) else moveRandomly(ant)
+                val nextPos = if ant.carryingFood then moveToNest(ant) else moveToFood(ant)
                 if agentManager.isPositionValid(nextPos) then 
                     agentManager.removeAgent(agent)
                     val oldPos = agent.pos
@@ -33,6 +33,15 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
         else if pos.y < nestPos.y then Direction.South.nextPosition(pos)
         else Direction.North.nextPosition(pos)
     
-    private def moveRandomly(ant: Ant): Position = ant.pos
+    private def moveToFood(ant: Ant): Position = 
+        val pheromoneLevels = neighbors(ant.pos).map(p => (p, pheromoneManager.pheromone(p)))
+        val maxPheromone = pheromoneLevels.maxBy(_._2)._2
+        val bestPositions = pheromoneLevels.filter(_._2 == maxPheromone).map(_._1)
+        if bestPositions.nonEmpty then bestPositions(scala.util.Random.nextInt(bestPositions.size))
+        else randomDirection().nextPosition(ant.pos)
+    
+    private def randomDirection(): Direction = 
+        val directions = List(Direction.North, Direction.East, Direction.South, Direction.West)
+        directions(scala.util.Random.nextInt(directions.size))
 
         

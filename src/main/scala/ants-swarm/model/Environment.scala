@@ -14,10 +14,11 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
                 val nextPos = if ant.carryingFood then moveToNest(ant) else moveRandomly(ant)
                 if agentManager.isPositionValid(nextPos) then 
                     agentManager.removeAgent(agent)
+                    val oldPos = agent.pos
                     agent.pos = nextPos
                     if objectManager.isObjectAt(nextPos) then interactWithObject(agent)
                     agentManager.placeAgent(agent)
-                    pheromoneManager.increasePheromone(agent.pos, 1.0)
+                    pheromoneManager.increasePheromone(oldPos, 0.5)
                 else 
                     throw new IllegalArgumentException("Invalid position")
 

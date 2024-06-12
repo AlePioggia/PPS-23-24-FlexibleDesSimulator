@@ -12,14 +12,21 @@ trait Grid:
 class Environment(val width: Int, val height: Int) extends Grid:
 
     def moveAgent(agent: Agent): Unit =
-        val nextPos = agent.nextPosition()
+        val nextPos = nextPosition(agent)
         if agentManager.isPositionValid(nextPos) then
             agentManager.removeAgent(agent)
-            agent.move()
+            preMoveActions(agent)
             if objectManager.isObjectAt(nextPos) then interactWithObject(agent)
             agentManager.placeAgent(agent)
+            postMoveActions()
         else
             throw new IllegalArgumentException("Invalid position")
+
+    def preMoveActions(agent: Agent): Unit = agent.move() 
+
+    def postMoveActions(): Unit = ()
+
+    def nextPosition(agent: Agent): Position = agent.nextPosition()
 
     def interactWithObject(agent: Agent): Unit = agent.interactWithObject()
 

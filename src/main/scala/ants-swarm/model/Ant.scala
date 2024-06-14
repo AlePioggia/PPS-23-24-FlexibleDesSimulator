@@ -8,6 +8,8 @@ class Ant(val id: Int, var pos: Position, var dir: Direction, val nestPos: Posit
     var carryingFood: Boolean = false
 
     override def interactWithObject(): Unit = 
-        if carryingFood then if pos == nestPos then carryingFood = false
-        else carryingFood = true
+        println("carrying before" + carryingFood)
+        if !carryingFood then carryingFood = true
+        else if carryingFood && pos == nestPos then carryingFood = false
+        println("carrying after" + carryingFood)
 

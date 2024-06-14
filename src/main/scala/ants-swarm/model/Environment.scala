@@ -21,24 +21,31 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
                 if ant.carryingFood then moveToNest(ant) else moveToFood(ant)
     
     override def postMoveActions(agent: Agent): Unit =
+        objectManager.removeObject(agent.pos)
         pheromoneManager.evaporatePheromones(0.1)
-        pheromoneManager.increasePheromone(agent.pos, 0.5)
+        pheromoneManager.increasePheromone(agent.pos, 0.5, agent.id)
 
     private def moveToNest(ant: Ant): Position = 
         val pos = ant.pos
         val nestPos = ant.nestPos
 
-        val nextDirection = 
-            if pos.x > nestPos.x then Direction.West
-            else if pos.x < nestPos.x then Direction.East
-            else if pos.y > nestPos.y then Direction.North
-            else if pos.y < nestPos.y then Direction.South
-            else Direction.North
+        if pos == nestPos then
+            ant.carryingFood = false
+            moveToFood(ant)
+        else 
+            val nextDirection = 
+                if pos.x > nestPos.x then Direction.West
+                else if pos.x < nestPos.x then Direction.East
+                else if pos.y > nestPos.y then Direction.North
+                else if pos.y < nestPos.y then Direction.South
+                else Direction.Still
 
-        nextDirection.nextPosition(pos)
+            nextDirection.nextPosition(pos)
     
     private def moveToFood(ant: Ant): Position = 
+        val n = neighbors(ant.pos)
         neighbors(ant.pos)
+            .filter(p => pheromoneManager.pheromoneSource(p) != Some(ant.id))
             .map(p => (p, pheromoneManager.pheromone(p)))
             .groupBy(_._2)
             .maxByOption(_._1)
@@ -47,10 +54,6 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
                 if bestPositions.nonEmpty then Some(bestPositions(Random.nextInt(bestPositions.size)))
                 else None
             }
-            .getOrElse(randomDirection().nextPosition(ant.pos))
-    
-    private def randomDirection(): Direction = 
-        val directions = List(Direction.North, Direction.East, Direction.South, Direction.West)
-        directions(Random.nextInt(directions.size))
+            .getOrElse(n(Random.nextInt(n.size)))
 
         

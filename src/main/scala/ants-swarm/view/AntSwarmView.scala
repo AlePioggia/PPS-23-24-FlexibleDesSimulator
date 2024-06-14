@@ -32,6 +32,12 @@ class AntSwarmView(override val environment: AntsEnvironment, override val simul
                 case true => cell.setBackground(Color.GREEN)
                 case false => ()
             }
+
+            val pheromoneLevel = environment.pheromoneManager.pheromone(pos)
+            val pheromoneLabel = new JLabel(f"$pheromoneLevel%.1f")
+            cell.add(pheromoneLabel)
+
+
             cell.setBorder(BorderFactory.createLineBorder(Color.BLACK))
             gridPanel.add(cell)
         }

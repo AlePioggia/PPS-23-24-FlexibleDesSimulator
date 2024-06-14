@@ -17,4 +17,7 @@ object Direction:
     case object West extends Direction:
         def nextPosition(pos: Position): Position = pos.copy(x = pos.x - 1)
 
+    case object Still extends Direction:
+        def nextPosition(pos: Position): Position = pos
+
 end Direction

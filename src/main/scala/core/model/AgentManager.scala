@@ -30,3 +30,7 @@ class AgentManager(val width: Int, val height: Int):
 
     def placeAgent(agent: Agent): Unit = grid(agent.pos.x)(agent.pos.y) = Some(agent)
 
+    def placeAgentAt(agent: Agent, pos: Position): Unit = 
+        if isPositionValid(pos) then {agent.pos = pos; placeAgent(agent)}
+        else throw new IllegalArgumentException("Invalid position")
+

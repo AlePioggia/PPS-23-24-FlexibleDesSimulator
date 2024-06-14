@@ -36,11 +36,12 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         val env = AntsEnvironment(10, 10)
         val nestPos = Position(0, 0)
         val ant = Ant(1, Position(1, 2), Direction.North, nestPos)
+        val ant2 = Ant(2, Position(1, 3), Direction.North, nestPos)
         env.agentManager.addAgent(ant)
 
-        env.pheromoneManager.increasePheromone(Position(1, 3), 1.0)
-        env.pheromoneManager.increasePheromone(Position(2, 2), 2.0)
-        env.pheromoneManager.increasePheromone(Position(0, 2), 0.5)
+        env.pheromoneManager.increasePheromone(Position(1, 3), 1.0, ant2.id)
+        env.pheromoneManager.increasePheromone(Position(2, 2), 2.0, ant2.id)
+        env.pheromoneManager.increasePheromone(Position(0, 2), 0.5, ant2.id)
 
         env.moveAgent(ant)
 

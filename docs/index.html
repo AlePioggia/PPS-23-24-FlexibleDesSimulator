@@ -134,7 +134,10 @@
         
         <section id="architectural-design">
             <h2>Architectural Design</h2>
-            <img src="arch_mvc.png" alt="Architecture Diagram" style="width: 100%;">
+            <p>The chosen architecture employs the Model View Controller (MVC) pattern, which ensures flexibility, modularity, and most importantly, allows the creation of an agnostic core with a well-defined structure.
+                To this end, an abstract structure has been developed to provide base classes for various swarms that extend them. By leveraging patterns such as the Template Method, code reuse is maximized, making the code structure much more concise.
+                Through MVC, the separation of concerns is prioritized, ensuring flexibility and allowing modifications to portions of the code independently from others. The simulation is governed by the controller, which utilizes the logic implemented in the model.</p>
+            <img src="arch_mvc.png" alt="Architecture Diagram" style="width: 80%;">
         </section>
         
         <section id="detailed-design">

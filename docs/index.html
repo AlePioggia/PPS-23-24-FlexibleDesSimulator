@@ -142,7 +142,7 @@
         
         <section id="detailed-design">
             <h2>Detailed Design</h2>
-            
+
             <h3>Environment Structure</h3>
             <p>
                 The system simulates a virtual environment where agents and objects interact within a defined grid. The <code>Grid</code> 
@@ -154,12 +154,18 @@
                 enhancements and changes.
             </p>
         
-            <h3>Advantages</h3>
+            <h3>Composition</h3>
             <p>
                 Since the <code>Environment</code> can easily become a god-class, having to deal with a lot of dynamics, the use of composition 
                 is very useful. It enhances the separation of concerns principle by allowing independent component testing. It also favors 
                 encapsulation, which hides the complexity of these operations from the <code>Environment</code> class, making it simpler and more 
                 focused on high-level functionality.
+            </p>
+
+            <h3>Template method</h3>
+            <p>
+                As can be seen in the <code>Environment</code> class, the moveAgent method is based off 3 methods, <code>preMoveActions(agent: Agent)</code>, <code>postMoveActions(agent: Agent)</code> and <code>interactWithObject(agent: Agent)</code> 
+                which are implemented by the extending classes. This allows for a more concise code structure and promotes code reuse.
             </p>
             <img src="detailed_environment.png" alt="Environment architecture Diagram" style="width: 80%;">
         </section>

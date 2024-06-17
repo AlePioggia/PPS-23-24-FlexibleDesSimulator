@@ -143,7 +143,35 @@
         <section id="detailed-design">
             <h2>Detailed Design</h2>
             <p>This is the detailed design section.</p>
+        
+            <h3>Introduction</h3>
+            <p>
+                La struttura virtuale in cui avviene la simulazione è l'environment, ed è definito da una matrice di dimensioni 
+                <code>height x width</code>. Le celle vengono popolate da agenti ed oggetti, e gli agenti si muovono nello spazio 
+                secondo una logica e possono interagire con gli oggetti.
+            </p>
+        
+            <h3>Environment Structure</h3>
+            <p>
+                The system simulates a virtual environment where agents and objects interact within a defined grid. The <code>Grid</code> 
+                trait acts as a blueprint for any grid-based environment. The design focuses on modularity, flexibility, and maintainability 
+                to accommodate future enhancements and changes. The simulation occurs within the <code>Environment</code> class, which extends 
+                the <code>Grid</code> trait. The environment is represented by a matrix of dimensions <code>height x width</code>, where cells 
+                can contain agents and objects. Agents move and interact with objects based on specific logic. By leveraging design patterns 
+                like the Template Method and principles such as composition over inheritance, the system can easily accommodate future 
+                enhancements and changes.
+            </p>
+        
+            <h3>Advantages</h3>
+            <p>
+                Since the <code>Environment</code> can easily become a god-class, having to deal with a lot of dynamics, the use of composition 
+                is very useful. It enhances the separation of concerns principle by allowing independent component testing. It also favors 
+                encapsulation, which hides the complexity of these operations from the <code>Environment</code> class, making it simpler and more 
+                focused on high-level functionality.
+            </p>
+            <img src="detailed_environment.png" alt="Environment architecture Diagram" style="width: 80%;">
         </section>
+        
         
         <section id="implementation">
             <h2>Implementation</h2>

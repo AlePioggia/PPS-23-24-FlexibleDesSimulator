@@ -30,16 +30,17 @@ object App:
 
         //simulator.schedule(AllAntMovesEvent(0, environment))
 
-        var n: Int = 1
-        for until <- n to 100 do
-            ants.foreach { ant =>
-                simulator.schedule(AntMoveEvent(n, ant, environment))
-                println(n)
-                n = n + 1
-            }
+        // var n: Int = 1
+        // for until <- n to 100 do
+        //     ants.foreach { ant =>
+        //         simulator.schedule(AntMoveEvent(n, ant, environment))
+        //         println(n)
+        //         n = n + 1
+        //     }
 
         val view = AntSwarmView(environment, simulator)
         val controller = AntsSwarmController(environment, simulator, view)
 
         controller.initialize()
         view.setVisible(true)
+        controller.simulate(200)

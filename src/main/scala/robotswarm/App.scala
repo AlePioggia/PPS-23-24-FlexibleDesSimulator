@@ -1,17 +1,17 @@
 package robotswarm
 
-import robotswarm.controller.RobotSwarmController
-import robotswarm.model.{RobotSwarmSimulator}
-import robotswarm.view.RobotSwarmView
+import controller.RobotSwarmController
+import model.{RobotSwarmSimulator}
+import view.RobotSwarmView
 import scala.collection.mutable.Set
 import utils.Position
 import utils.Direction
 import model.Robot
 import model.AllRobotMovesEvent
-import robotswarm.model.Battery
-import robotswarm.model.RobotEnvironment
-import robotswarm.model.ai.TaskAllocator
-import robotswarm.model.ai.AStar
+import model.Battery
+import model.RobotEnvironment
+import model.ai.TaskAllocator
+import model.ai.AStar
 
 object App:
   def main(args: Array[String]): Unit =
@@ -37,15 +37,12 @@ object App:
     for obj <- objects do
       environment.objectManager.addObject(obj)
 
-    var setup = simulator.setup(robots, environment, objects)
-    println(setup)
-
-    for until <- 1 to 20 do
-      simulator.schedule(AllRobotMovesEvent(0, environment))
+    simulator.setup(robots, environment, objects)
 
     val view = new RobotSwarmView(environment, simulator)
     val controller = new RobotSwarmController(environment, simulator, view)
 
     controller.initialize()
     view.setVisible(true)
+    controller.simulate(100)
 

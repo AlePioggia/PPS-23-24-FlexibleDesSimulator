@@ -16,6 +16,7 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
     def simulate(n: Int): Unit =
         for _ <- 0 until n do
             simulator.step()
+            schedule()
             view.drawGrid()
             Thread.sleep(1000)
 

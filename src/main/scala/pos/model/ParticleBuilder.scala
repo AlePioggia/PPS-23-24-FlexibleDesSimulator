@@ -6,7 +6,6 @@ import utils.Direction
 class ParticleBuilder:
     private var id: Int = 0
     private var pos: Position = Position(0, 0)
-    private var direction: Direction = Direction.Still
     private var velocity: Position = Position(0, 0)
     private var personalBest: Position = Position(0, 0)
     private var globalBest: Position = Position(0, 0)
@@ -17,10 +16,6 @@ class ParticleBuilder:
 
     def withPosition(pos: Position): ParticleBuilder = 
         this.pos = pos
-        this
-
-    def withDirection(dir: Direction): ParticleBuilder = 
-        this.direction = dir
         this
 
     def withVelocity(vel: Position): ParticleBuilder = 
@@ -36,6 +31,6 @@ class ParticleBuilder:
         this
     
     def build(): Particle = 
-        val state = State(pos, direction, velocity)
+        val state = State(pos, velocity)
         val best = Best(personalBest, globalBest)
         Particle(id)(state, best)

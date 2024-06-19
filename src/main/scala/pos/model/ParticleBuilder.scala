@@ -8,6 +8,7 @@ class ParticleBuilder:
     private var pos: Position = Position(0, 0)
     private var velocity: Position = Position(0, 0)
     private var personalBest: Position = Position(0, 0)
+    private var personalBestFitness: Double = Int.MaxValue
     private var globalBest: Position = Position(0, 0)
     
     def withId(id: Int): ParticleBuilder = 
@@ -26,11 +27,15 @@ class ParticleBuilder:
         this.personalBest = personalBest
         this
     
+    def withPersonalBestFitness(personalBestFitness: Double): ParticleBuilder = 
+        this.personalBestFitness = personalBestFitness
+        this
+
     def withGlobalBest(globalBest: Position): ParticleBuilder = 
         this.globalBest = globalBest
         this
-    
+
     def build(): Particle = 
         val state = State(pos, velocity)
-        val best = Best(personalBest, globalBest)
+        val best = Best(personalBest, personalBestFitness, globalBest)
         Particle(id)(state, best)

@@ -24,11 +24,17 @@ class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
         env = new PosEnvironment(10, 10)(fitnessFunction)
         env.agentManager.placeAgentAt(particle, Position(0, 0))
 
-    "An Environment " should "be initialized correctly" in {
+    it should "be initialized correctly" in {
         initialize()
         env.width should be (10)
         env.height should be (10)
         env.globalBest should be (Position(Int.MaxValue, Int.MaxValue))
         env.globalBestFitness should be (Double.MaxValue)
+    }
+
+    it should "update personal best correctly in preMoveActions" in {
+        initialize()
+        env.preMoveActions(particle)
+        particle.best.personalBest should be (particle.pos)
     }
 }

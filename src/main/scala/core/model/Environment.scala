@@ -17,7 +17,6 @@ class Environment(val width: Int, val height: Int) extends Grid:
             agentManager.removeAgent(agent)
             preMoveActions(agent)
             if objectManager.isObjectAt(nextPos) then interactWithObject(agent)
-            println("next pos: " + nextPos +  " " + objectManager.isObjectAt(nextPos))
             agentManager.placeAgentAt(agent, nextPos)
             postMoveActions(agent)
         else

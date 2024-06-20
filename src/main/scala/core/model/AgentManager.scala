@@ -12,6 +12,10 @@ class AgentManager(val width: Int, val height: Int):
         if isPositionValid(agent.pos) then {agents += agent; placeAgent(agent)}
         else throw IllegalArgumentException("Invalid position")
 
+    def addAgentByPosition(x: Int, y: Int, agent: Agent): Unit = 
+        if isPositionValid(Position(x, y)) then {agents += agent; grid(x)(y) = Some(agent)}
+        else throw IllegalArgumentException("Invalid position")
+
     def removeAgent(agent: Agent): Unit = {grid(agent.pos.x)(agent.pos.y) = None}
 
     def getAgentAt(pos: Position): Option[Agent] = grid(pos.x)(pos.y)

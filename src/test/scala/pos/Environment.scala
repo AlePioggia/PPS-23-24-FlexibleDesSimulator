@@ -2,7 +2,7 @@ package pos
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import pos.model.{Particle, ParticleBuilder, State, Best}
+import pos.model.{Particle, ParticleBuilder, Best}
 import utils.Position
 import pos.model.PosEnvironment
 
@@ -41,14 +41,14 @@ class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
         val oldPersonalBestFitness = particle.best.personalBestFitness
 
         env.preMoveActions(particle)
-        particle.state.pos should be (Position(4, 4))
+        particle.pos should be (Position(4, 4))
     }
 
 
     it should "update global best correctly in postMoveActions" in {
         initialize()
         val newPosition = Position(1, 1)
-        particle.state.pos = newPosition
+        particle.pos = newPosition
         env.postMoveActions(particle)
 
         val newFitness = fitnessFunction(newPosition)
@@ -73,20 +73,30 @@ class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
         initialize()
         env.moveAgent(particle)
 
-        val expectedPos = Position(5, 5)
-        particle.state.pos should be (expectedPos)
-        env.agentManager.isPositionValid(expectedPos) should be (true)
+        val expectedPos = Position(4, 4)
+        particle.pos should be (expectedPos)
+        env.agentManager.isPositionValid(expectedPos) should be (false)
     }
 
     it should "not move agent out of bounds" in {
         initialize()
         val initialPos = Position(9, 9)
-        particle.state.pos = initialPos
-        particle.state.velocity = Position(1, 1)
+        particle.pos = initialPos
+        particle.velocity = Position(1, 1)
 
         env.moveAgent(particle)
 
         val expectedPos = Position(9, 9) 
-        particle.state.pos should be (expectedPos)
+        particle.pos should be (expectedPos)
     }
+
+
+    it should "setup the environment by putting n particles inside the grid" in {
+        val n = 10
+        val secondEnv = PosEnvironment(10, 10)(fitnessFunction)
+        secondEnv.setup(n)
+
+        secondEnv.agentManager.agents.size should be (n)
+    }
+
 }

@@ -36,6 +36,5 @@ class ParticleBuilder:
         this
 
     def build(): Particle = 
-        val state = State(pos, velocity)
         val best = Best(personalBest, personalBestFitness, globalBest)
-        Particle(id)(state, best)
+        Particle(id)(pos, velocity, best)

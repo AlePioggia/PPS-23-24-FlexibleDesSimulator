@@ -23,9 +23,11 @@ class BasicSimulator extends Simulator:
             step()
 
     def step(): Unit = 
-        if eventQueue.nonEmpty then
+        if eventQueue.nonEmpty && !shouldStop then
             val nextEvent = eventQueue.dequeue()
             currentSimTime = nextEvent.time
             handleEvent(nextEvent)
     
     def handleEvent(event: Event): Unit = ()
+
+    def shouldStop: Boolean = false

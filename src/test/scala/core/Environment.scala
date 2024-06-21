@@ -37,5 +37,18 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
             Position(5, 4), Position(4, 5), Position(5, 6), Position(6, 5)
         )
     }
+
+    it should "correctly place a random amount of objects on the grid" in {
+        val env = new Environment(10, 10)
+        env.placeRandomPickupObjs(10)
+        env.objectManager.objsPosList.size should be (10)   
+    }
+
+    it should "refuse to place more objects than the grid can hold" in {
+        val env = new Environment(10, 10)
+        assertThrows[IllegalArgumentException] {
+            env.placeRandomPickupObjs(101)
+        }
+    }
 }
 

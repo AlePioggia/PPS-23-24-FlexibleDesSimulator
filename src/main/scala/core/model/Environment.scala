@@ -39,3 +39,18 @@ class Environment(val width: Int, val height: Int) extends Grid:
             Position(x, y + 1)
         )
         neighbors.filter(agentManager.isPositionValid)
+
+    def placeRandomPickupObjs(n: Int): Unit =
+        if n > width * height then throw new IllegalArgumentException("Too many objects") 
+        if n == 0 then return
+        val random = new scala.util.Random
+        var (x, y) = generateRandomCoordinates()
+        while agentManager.getAgentAt(Position(x, y)).isDefined || objectManager.isObjectAt(Position(x, y)) do
+            x = random.nextInt(width)
+            y = random.nextInt(height)
+        objectManager.addObject(Position(x, y))
+        placeRandomPickupObjs(n - 1)
+
+    private def generateRandomCoordinates(): (Int, Int) =
+        val random = new scala.util.Random
+        (random.nextInt(width), random.nextInt(height))

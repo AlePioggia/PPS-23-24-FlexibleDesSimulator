@@ -2,9 +2,9 @@ package robotswarm
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import robotswarm.model.RobotEnvironment
+import model.RobotEnvironment
 import utils.Position
-import robotswarm.model.Robot
+import model.Robot
 import utils.Direction
 
 class EnvironmentSpec extends AnyFlatSpec with Matchers {
@@ -33,18 +33,5 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         env.isRobotCarrying(1) should be (false)
         env.moveAgent(robot)
         env.isRobotCarrying(1) should be (true)
-    }
-
-    it should "correctly place a random amount of objects on the grid" in {
-        val env = new RobotEnvironment(10, 10)
-        env.placeRandomPickupObjs(10)
-        env.objectManager.objsPosList.size should be (10)   
-    }
-
-    it should "refuse to place more objects than the grid can hold" in {
-        val env = new RobotEnvironment(10, 10)
-        assertThrows[IllegalArgumentException] {
-            env.placeRandomPickupObjs(101)
-        }
     }
 }

@@ -4,6 +4,7 @@ import core.simulator.Simulator
 import core.view.View
 import core.model.Environment
 import core.simulator.Event
+import scala.annotation.tailrec
 
 class BaseEvent extends Event:
     def time: Double = 0.0
@@ -14,11 +15,18 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
         view.drawGrid()
 
     def simulate(n: Int): Unit =
-        for _ <- 0 until n do
-            simulator.step()
-            schedule()
-            view.drawGrid()
-            Thread.sleep(1000)
+        @tailrec
+        def simulateStep(remainingSteps: Int): Unit =
+            if remainingSteps > 0 then
+                for
+                    _ <- Some(simulator.step())
+                    _ <- Some(schedule())
+                    _ <- Some(view.drawGrid())
+                    _ <- Some(Thread.sleep(1000))
+                yield ()
+                simulateStep(remainingSteps - 1)
+        
+        simulateStep(n)
 
     def schedule(): Unit = 
         simulator.schedule(BaseEvent())

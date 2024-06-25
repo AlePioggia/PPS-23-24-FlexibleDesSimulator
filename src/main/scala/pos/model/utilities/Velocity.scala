@@ -10,9 +10,7 @@ object VelocityUtils:
         globalBest: Position,
         params: POSParams
     ): Position =
-        val (w, c1, c2) = (params.w, params.c1, params.c2)
-        val r1 = scala.util.Random.nextDouble()
-        val r2 = scala.util.Random.nextDouble()
+        val (w, c1, c2, r1, r2) = (params.w, params.c1, params.c2, params.r1, params.r2)
 
         val velocityX = (w * particle.velocity.x 
             + c1 * r1 * (particle.best.personalBest.x - particle.pos.x)

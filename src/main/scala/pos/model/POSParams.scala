@@ -1,11 +1,11 @@
 package pos.model
 
-class PSOParams(val w: Double, val c1: Double, val c2: Double, val r1: Double, val r2: Double)
+class POSParams(val w: Double, val c1: Double, val c2: Double, val r1: Double, val r2: Double)
 
-object PSOParams:
-  val Default: PSOParams = PSOParams(0.5, 1.5, 1.5, 0.5, 0.5)
+object POSParams:
+  val Default: POSParams = POSParams(0.5, 1.5, 1.5, 0.5, 0.5)
 
-  def builder() = Builder
+  def builder() = new Builder
 
   class Builder:
     private var w: Double = 0.5
@@ -28,4 +28,4 @@ object PSOParams:
 
     def withRandomR2(): Builder = { this.r2 = scala.util.Random.nextDouble(); this }  
     
-    def build(): PSOParams = PSOParams(w, c1, c2, r1, r2)
+    def build(): POSParams = POSParams(w, c1, c2, r1, r2)

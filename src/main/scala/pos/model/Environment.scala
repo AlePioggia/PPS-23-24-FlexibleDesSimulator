@@ -4,7 +4,7 @@ import core.model.Environment
 import utils.Position
 import core.model.Agent
 
-class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Double)(params: PSOParams) extends Environment(width, height):
+class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Double)(params: POSParams) extends Environment(width, height):
     var globalBest: Position = Position(Int.MaxValue, Int.MaxValue)
     var globalBestFitness: Double = Double.MaxValue
 

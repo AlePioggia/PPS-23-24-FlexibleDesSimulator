@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers
 import pos.model.{Particle, ParticleBuilder, Best}
 import utils.Position
 import pos.model.PosEnvironment
+import pos.model.POSParams
 
 class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
     val fitnessFunction: Position => Double = pos => 
@@ -22,7 +23,7 @@ class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
             .withGlobalBest(Position(4, 4))
             .build()
 
-        env = new PosEnvironment(10, 10)(fitnessFunction)
+        env = new PosEnvironment(10, 10)(fitnessFunction)(POSParams.Default)
         env.globalBest = Position(4, 4)
         env.globalBestFitness = fitnessFunction(Position(4, 4))
         env.agentManager.placeAgentAt(particle, Position(2, 2))
@@ -93,7 +94,7 @@ class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
 
     it should "setup the environment by putting n particles inside the grid" in {
         val n = 10
-        val secondEnv = PosEnvironment(10, 10)(fitnessFunction)
+        val secondEnv = PosEnvironment(10, 10)(fitnessFunction)(POSParams.Default)
         secondEnv.setup(n)
 
         secondEnv.agentManager.agents.size should be (n)

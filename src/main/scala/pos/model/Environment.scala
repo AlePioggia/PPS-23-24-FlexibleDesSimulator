@@ -4,7 +4,7 @@ import core.model.Environment
 import utils.Position
 import core.model.Agent
 
-class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Double) extends Environment(width, height):
+class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Double)(params: PSOParams) extends Environment(width, height):
     var globalBest: Position = Position(Int.MaxValue, Int.MaxValue)
     var globalBestFitness: Double = Double.MaxValue
 
@@ -27,10 +27,10 @@ class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Doubl
     override def nextPosition(agent: Agent): Position =
         agent match
             case particle: Particle =>
-                val (w, c1, c2, r1, r2) = (0.5, 1.5, 1.5, 0.5, 0.5)
+                val (w, c1, c2, r1, r2) = (params.w, params.c1, params.c2, params.r1, params.r2)
 
                 val velocityX = (w * particle.velocity.x 
-                    + c1 * r1 * (particle.best.personalBest.x - particle.pos.x) 
+                    + c1 * r1 * (particle.best.personalBest.x - particle.pos.x)
                     + c2 * r2 * (globalBest.x - particle.pos.x)).toInt
                 
                 val velocityY = (w * particle.velocity.y 
@@ -39,11 +39,9 @@ class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Doubl
 
                 particle.velocity = boundPosition(Position(velocityX, velocityY))
 
-                // Initialize the target position
                 var targetPos = boundPosition(Position(particle.pos.x + particle.velocity.x, 
                     particle.pos.y + particle.velocity.y))
 
-                // Check if the target position is valid; if not, find a valid one
                 while !agentManager.isPositionValid(targetPos) do
                     targetPos = boundPosition(Position(
                         particle.pos.x + scala.util.Random.nextInt(3) - 1, 

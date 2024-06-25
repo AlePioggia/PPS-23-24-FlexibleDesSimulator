@@ -1,9 +1,9 @@
 package pos.model
 
-import utils.Position
-import utils.Direction
 import core.model.Agent
 import scala.util.Random
+import _root_.utils.Position
+import _root_.utils.Direction
 
 case class Best(var personalBest: Position, var personalBestFitness: Double, var globalBest: Position)
 

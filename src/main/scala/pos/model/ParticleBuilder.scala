@@ -1,7 +1,7 @@
 package pos.model
 
-import utils.Position
-import utils.Direction
+import _root_.utils.Position
+
 
 class ParticleBuilder:
     private var id: Int = 0

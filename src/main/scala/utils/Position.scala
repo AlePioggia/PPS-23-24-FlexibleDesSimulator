@@ -1,6 +1,9 @@
 package utils
 
+import scala.util.Random
+
 case class Position (x: Int, y: Int)
+
 trait Direction:
     def nextPosition(pos: Position): Position
 

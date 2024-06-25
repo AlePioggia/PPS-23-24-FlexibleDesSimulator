@@ -6,6 +6,7 @@ import pos.model.{Particle, ParticleBuilder, Best}
 import utils.Position
 import pos.model.PosEnvironment
 import pos.model.POSParams
+import pos.model.utilities.PositionUtils
 
 class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
     val fitnessFunction: Position => Double = pos => 
@@ -67,7 +68,7 @@ class PosEnvironmentSpec extends AnyFlatSpec with Matchers {
         val pos = Position(11, 11)
         val expectedPos = Position(9, 9)
 
-        env.boundPosition(pos) should be (expectedPos)
+        PositionUtils.boundPosition(pos, 10, 10) should be (expectedPos)
     }
 
     it should "move agent correctly using moveAgent" in {

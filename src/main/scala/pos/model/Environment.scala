@@ -26,20 +26,28 @@ class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Doubl
                     globalBest = particle.pos
                     globalBestFitness = fitness
 
-    override def nextPosition(agent: Agent): Position =
+    override def nextPosition(agent: Agent) =
         agent match
             case particle: Particle =>
-                val newVelocity = VelocityUtils.calculateVelocity(particle, globalBest, params)
-                particle.velocity = PositionUtils.boundPosition(newVelocity, width, height)
+                val (w, c1, c2, r1, r2) = (0.5, 1.5, 1.5, 0.5, 0.5)
+                
+                val x = (w * particle.velocity.x 
+                    + c1 * r1 * (particle.best.personalBest.x - particle.pos.x) 
+                    + c2 * r2 * (globalBest.x - particle.pos.x)).toInt
+                
+                val y = (w * particle.velocity.y 
+                    + c1 * r1 * (particle.best.personalBest.y - particle.pos.y) 
+                    + c2 * r2 * (globalBest.y - particle.pos.y)).toInt
 
-                var targetPos = PositionUtils.boundPosition(Position(particle.pos.x + particle.velocity.x, particle.pos.y + particle.velocity.y), width, height)
-
-                while !agentManager.isPositionValid(targetPos) do
-                    targetPos = PositionUtils.boundPosition(Position(particle.pos.x + scala.util.Random.nextInt(3) - 1, particle.pos.y + scala.util.Random.nextInt(3) - 1),
-                        width, height
-                    )
-
-                targetPos
+                particle.velocity = boundPosition(Position(x, y))
+                particle.velocity = boundPosition(Position(x, y))
+                boundPosition(Position(particle.pos.x + particle.velocity.x, 
+                    particle.pos.y + particle.velocity.y))
+            
+    def boundPosition(pos: Position): Position =
+        val x = Math.max(0, Math.min(width - 1, pos.x))
+        val y = Math.max(0, Math.min(height - 1, pos.y))
+        Position(x, y)   
     
     def setup(n: Int): Unit =
         val random = scala.util.Random

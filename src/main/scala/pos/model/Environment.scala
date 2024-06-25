@@ -17,48 +17,29 @@ class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Doubl
     
     override def postMoveActions(agent: Agent): Unit =
         agent match
-            case particle: Particle =>
-                val fitness = fitnessFunction(particle.pos)
-                if fitness < particle.best.personalBestFitness then
-                    particle.best.personalBest = particle.pos
-                    particle.best.personalBestFitness = fitness
-                
-                if fitness < globalBestFitness then
-                    globalBest = particle.pos
-                    globalBestFitness = fitness
+            case particle: Particle => 
+                {val fitness = fitnessFunction(particle.pos); if fitness < particle.best.personalBestFitness then updatePersonalBests(particle: Particle); if fitness < globalBestFitness then updateGlobalBests(particle: Particle)}
 
     override def nextPosition(agent: Agent) =
         agent match
             case particle: Particle =>
                 particle.velocity = PositionUtils.boundPosition(calculateVelocity(particle, globalBest, params), width, height)
-                PositionUtils.boundPosition(Position(particle.pos.x + particle.velocity.x, 
-                    particle.pos.y + particle.velocity.y), width, height)
+                PositionUtils.boundPosition(Position(particle.pos.x + particle.velocity.x, particle.pos.y + particle.velocity.y), width, height)
             
-    def setup(n: Int): Unit =
-        val random = scala.util.Random
-        var occupiedPositions: Set[Position] = Set()
+    def setup(n: Int): Unit = setupParticles(n, Set.empty, 0)
 
-        for i <- 0 until n do
-            var posX = random.nextInt(width)
-            var posY = random.nextInt(height)
-            var position = Position(posX, posY)
-
-            while occupiedPositions.contains(position) do
-                posX = random.nextInt(width)
-                posY = random.nextInt(height)
-                position = Position(posX, posY)
-
-            val velocityX = random.nextInt(5) - 2
-            val velocityY = random.nextInt(5) - 2
+    private def setupParticles(n: Int, occupiedPositions: Set[Position], id: Int): Unit =
+        if n > 0 then
+            val (position, velocity) = (PositionUtils.findValidPosition(width, height, occupiedPositions), PositionUtils.randomVelocity())
             
             val particle = ParticleBuilder()
-                .withId(i)
-                .withPosition(position)
-                .withVelocity(Position(velocityX, velocityY))
-                .withPersonalBest(position)
-                .withPersonalBestFitness(Double.MaxValue)
-                .withGlobalBest(globalBest)
+                .withId(id).withPosition(position).withVelocity(Position(velocity.x, velocity.y))
+                .withPersonalBest(position).withPersonalBestFitness(Double.MaxValue).withGlobalBest(globalBest)
                 .build()
             
-            agentManager.addAgentByPosition(posX, posY, particle)
-            occupiedPositions += position
+            agentManager.addAgentByPosition(position.x, position.y, particle)
+            setupParticles(n - 1, occupiedPositions + position, id + 1)
+
+    private def updatePersonalBests(particle: Particle): Unit = {particle.best.personalBest = particle.pos; particle.best.personalBestFitness = fitnessFunction(particle.pos)}
+
+    private def updateGlobalBests(particle: Particle): Unit = {globalBest = particle.pos; globalBestFitness = fitnessFunction(particle.pos)}

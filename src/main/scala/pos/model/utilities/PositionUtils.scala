@@ -5,17 +5,10 @@ import scala.util.Random
 
 object PositionUtils:
     def findValidPosition(width: Int, height: Int, occupiedPositions: Set[Position]): Position =
-        val random = Random
-        var posX = random.nextInt(width)
-        var posY = random.nextInt(height)
-        var position = Position(posX, posY)
+        def generatePositionStream(): LazyList[Position] =
+            LazyList.continually(Position(Random.nextInt(width), Random.nextInt(height)))
 
-        while occupiedPositions.contains(position) do
-            posX = random.nextInt(width)
-            posY = random.nextInt(height)
-            position = Position(posX, posY)
-        
-        position
+        generatePositionStream().find(pos => !occupiedPositions.contains(pos)).get
 
     def boundPosition(pos: Position, width: Int, height: Int): Position =
         val x = Math.max(0, Math.min(width - 1, pos.x))

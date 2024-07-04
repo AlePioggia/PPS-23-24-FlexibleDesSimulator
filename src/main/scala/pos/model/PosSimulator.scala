@@ -2,7 +2,6 @@ package pos.model
 
 import core.simulator.Event
 import core.simulator.BasicSimulator
-import utils.Position
 
 case class PosMoveEvent(time: Double, particle: Particle, environment: PosEnvironment) extends Event
 case class AllPosMovesEvent(time: Double, environment: PosEnvironment) extends Event

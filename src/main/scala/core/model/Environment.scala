@@ -19,9 +19,7 @@ class Environment(val width: Int, val height: Int) extends Grid:
             if objectManager.isObjectAt(nextPos) then interactWithObject(agent)
             agentManager.placeAgentAt(agent, nextPos)
             postMoveActions(agent)
-        else
-            throw new IllegalArgumentException("Invalid position")
-
+            
     def preMoveActions(agent: Agent): Unit = agent.move() 
 
     def postMoveActions(agent: Agent): Unit = ()

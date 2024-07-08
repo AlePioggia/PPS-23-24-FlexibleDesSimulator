@@ -24,8 +24,17 @@ class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Doubl
         agent match
             case particle: Particle =>
                 particle.velocity = PositionUtils.boundPosition(calculateVelocity(particle, globalBest, params), width, height)
-                PositionUtils.boundPosition(Position(particle.pos.x + particle.velocity.x, particle.pos.y + particle.velocity.y), width, height)
-            
+
+                var targetPos = Position(particle.pos.x + particle.velocity.x, particle.pos.y + particle.velocity.y)
+
+                while !agentManager.isPositionValid(targetPos) do
+                    targetPos = PositionUtils.boundPosition(Position(
+                        particle.pos.x + scala.util.Random.nextInt(3) - 1, 
+                        particle.pos.y + scala.util.Random.nextInt(3) - 1
+                    ), width, height)
+
+                targetPos
+
     def setup(n: Int): Unit = setupParticles(n, Set.empty, 0)
 
     private def setupParticles(n: Int, occupiedPositions: Set[Position], id: Int): Unit =

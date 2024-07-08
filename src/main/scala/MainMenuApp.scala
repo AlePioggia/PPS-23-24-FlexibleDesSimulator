@@ -23,17 +23,28 @@ object MainMenuApp extends App {
 
   robotsButton.addActionListener(new ActionListener {
     def actionPerformed(e: ActionEvent): Unit = {
-      new Thread(() => robotswarm.App.main(Array.empty)).start()
+      val n = new JTextField(5)
+
+      val panel = new JPanel()
+      panel.add(new JLabel("n robots:"))
+      panel.add(n)
+      val result = JOptionPane.showConfirmDialog(null, panel, "Enter Robot swarm Parameters", JOptionPane.OK_CANCEL_OPTION)
+      if (result == JOptionPane.OK_OPTION)
+        new Thread(() => robotswarm.App.main(Array(n.getText()))).start()
     }
   })
 
   posButton.addActionListener(new ActionListener {
     def actionPerformed(e: ActionEvent): Unit = {
+      val n = new JTextField(5)
       val w = new JTextField(5)
       val c1 = new JTextField(5)
       val c2 = new JTextField(5)
 
       val panel = new JPanel()
+      panel.add(new JLabel("n agents:"))
+      panel.add(n)
+      panel.add(Box.createHorizontalStrut(15))
       panel.add(new JLabel("w:"))
       panel.add(w)
       panel.add(Box.createHorizontalStrut(15))
@@ -45,7 +56,7 @@ object MainMenuApp extends App {
 
       val result = JOptionPane.showConfirmDialog(null, panel, "Enter POS Parameters", JOptionPane.OK_CANCEL_OPTION)
       if (result == JOptionPane.OK_OPTION)
-        new Thread(() => pos.App.main(Array(w.getText(), c1.getText(), c2.getText()))).start()
+        new Thread(() => pos.App.main(Array(n.getText(), w.getText(), c1.getText(), c2.getText()))).start()
     }
   })
 

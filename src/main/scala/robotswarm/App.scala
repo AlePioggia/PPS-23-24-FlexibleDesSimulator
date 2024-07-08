@@ -15,6 +15,7 @@ import model.ai.AStar
 
 object App:
   def main(args: Array[String]): Unit =
+    val n = args(0).toInt
     val robots: Set[Robot] = Set.empty
     val environment = new RobotEnvironment(10, 10)
     val simulator = new RobotSwarmSimulator
@@ -32,12 +33,10 @@ object App:
     environment.agentManager.addAgent(robot3)
     environment.agentManager.addAgent(robot4)
     println(environment.agentManager.agents)
-    val objects = List(Position(0, 2), Position(9, 7), Position(3, 3), Position(4, 5))
-    
-    for obj <- objects do
-      environment.objectManager.addObject(obj)
+    // val objects = List(Position(0, 2), Position(9, 7), Position(3, 3), Position(4, 5))
+    val objects = environment.placeRandomPickupObjs(n)
 
-    simulator.setup(robots, environment, objects)
+    simulator.setup(robots, environment, environment.objectManager.objsPosList)
 
     val view = new RobotSwarmView(environment, simulator)
     val controller = new RobotSwarmController(environment, simulator, view)

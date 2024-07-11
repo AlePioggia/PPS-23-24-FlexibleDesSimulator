@@ -13,7 +13,7 @@ case class AllRobotMovesEvent(time: Double, environment: RobotEnvironment) exten
 type RobotId = Int
 
 class RobotSwarmSimulator extends BasicSimulator:
-    var paths = Map.empty[RobotId, Iterator[Direction]]
+    var paths = Map.empty[RobotId, ReversibleIterator[Direction]]
 
     override def handleEvent(event: Event): Unit = event match
         case RobotMoveEvent(_, robot, environment) =>
@@ -24,12 +24,41 @@ class RobotSwarmSimulator extends BasicSimulator:
                 if iterator.hasNext then
                     val direction: Direction = iterator.next()
                     robot.dir = direction
-                    environment.moveAgent(robot)
+                    if environment.agentManager.isPositionValid(environment.nextPosition(robot)) then 
+                        environment.moveAgent(robot)
+                    else iterator.previous()
             })
         case _ => super.handleEvent(event)
 
     def setup(robots: scala.collection.mutable.Set[Robot], environment: RobotEnvironment, objects: List[Position]): Map[RobotId, Iterator[Direction]] = {
         var assignments = TaskAllocator.assignTasks(robots, objects)        
-        paths ++= assignments.map { case (robot, goal) => {robot.goal = goal; (robot.id, AStar.findPath(robot.pos, goal, environment).iterator)}}
+        paths ++= assignments.map { case (robot, goal) => {robot.goal = goal; (robot.id, ReversibleIterator(AStar.findPath(robot.pos, goal, environment).iterator))}}
         paths
     }
+
+import scala.collection.mutable
+
+class ReversibleIterator[T](underlying: Iterator[T]) extends Iterator[T] {
+    private val buffer = mutable.Stack[T]()
+    private var lastElement: Option[T] = None
+
+    override def hasNext: Boolean = underlying.hasNext || buffer.nonEmpty
+
+    override def next(): T = {
+        if (buffer.nonEmpty) {
+            lastElement = Some(buffer.pop())
+        } else {
+            lastElement = Some(underlying.next())
+        }
+        lastElement.get
+    }
+
+    def previous(): Unit = {
+        lastElement.foreach(buffer.push)
+        lastElement = None
+    }
+}
+
+object ReversibleIterator {
+    def apply[T](iterator: Iterator[T]): ReversibleIterator[T] = new ReversibleIterator(iterator)
+}

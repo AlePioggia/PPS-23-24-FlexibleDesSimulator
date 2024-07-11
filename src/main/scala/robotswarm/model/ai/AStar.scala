@@ -5,12 +5,10 @@ import core.model.Environment
 import utils.Position
 import utils.Direction
 import _root_.robotswarm.model.Robot
-import utils.Position
-import core.model.Environment
-import utils.Direction
+import robotswarm.model.RobotEnvironment
 
 object AStar:
-    def findPath(start: Position, goal: Position, environment: Environment): List[Direction] =
+    def findPath(start: Position, goal: Position, environment: RobotEnvironment): List[Direction] =
         val openSet = mutable.PriorityQueue.empty[Node](Ordering.by(-_.f))
         val cameFrom = mutable.Map[Position, Position]()
         val gScore = mutable.Map[Position, Double]().withDefaultValue(Double.PositiveInfinity)
@@ -27,13 +25,14 @@ object AStar:
                 return reconstructPath(cameFrom, current)
 
             for neighbor <- environment.neighbors(current) do
-                val tentativeGScore = gScore(current) + 1
-                if tentativeGScore < gScore(neighbor) then
-                cameFrom(neighbor) = current
-                gScore(neighbor) = tentativeGScore
-                fScore(neighbor) = gScore(neighbor) + manhattanDistance(neighbor, goal)
-                if !openSet.exists(_.position == neighbor) then
-                    openSet.enqueue(Node(neighbor, gScore(neighbor), fScore(neighbor)))
+                if !environment.isObstacle(neighbor, goal) then
+                    val tentativeGScore = gScore(current) + 1
+                    if tentativeGScore < gScore(neighbor) then
+                        cameFrom(neighbor) = current
+                        gScore(neighbor) = tentativeGScore
+                        fScore(neighbor) = gScore(neighbor) + manhattanDistance(neighbor, goal)
+                        if !openSet.exists(_.position == neighbor) then
+                            openSet.enqueue(Node(neighbor, gScore(neighbor), fScore(neighbor)))
 
         List.empty
 
@@ -58,4 +57,3 @@ object AStar:
 
 case class Node(position: Position, g: Double, h: Double):
   def f: Double = g + h
-

@@ -20,6 +20,9 @@ class RobotEnvironment(width: Int, height: Int) extends Environment(width: Int, 
             case _ => false
         ).getOrElse(false)
 
+    def isObstacle(pos: Position, goal: Position) =
+        objectManager.isObjectAt(pos) && pos != goal
+
     private def generateRandomCoordinates(): (Int, Int) =
         val random = new scala.util.Random
         (random.nextInt(width), random.nextInt(height))

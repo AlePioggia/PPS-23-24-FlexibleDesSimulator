@@ -2,14 +2,21 @@ package core.simulator
 
 import scala.collection.mutable.PriorityQueue
 
+enum State:
+    case Running, Stopped, Ended
+
 trait Event:
     def time: Double
 
 trait Simulator:
+    var currentStep: Int = 0
+    var startTime: Long = System.currentTimeMillis()
+    var state: State = State.Stopped
     def schedule(event: Event): Unit
     def run(): Unit
     def step(): Unit
     def handleEvent(event: Event): Unit
+    def getElapsedTime: Long
 
 class BasicSimulator extends Simulator:
     private var currentSimTime = 0.0
@@ -27,7 +34,16 @@ class BasicSimulator extends Simulator:
             val nextEvent = eventQueue.dequeue()
             currentSimTime = nextEvent.time
             handleEvent(nextEvent)
+            updateStats()
+        else 
+            state = State.Ended
     
     def handleEvent(event: Event): Unit = ()
 
     def shouldStop: Boolean = false
+
+    def updateStats(): Unit =
+        currentStep += 1
+
+    def getElapsedTime: Long =
+        System.currentTimeMillis() - startTime

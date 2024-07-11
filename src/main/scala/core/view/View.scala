@@ -11,9 +11,15 @@ import java.awt.GridLayout
 import java.awt.event.ActionEvent
 import javax.swing.JButton
 import utils.Position
+import javax.swing.JLabel
+import javax.swing.Timer
 
 class View (val environment: Environment, val simulator: Simulator) extends JFrame:
     protected val gridPanel: JPanel = new JPanel
+    protected val statsPanel: JPanel = new JPanel
+    protected val timerLabel: JLabel = new JLabel("Time: 0")
+    protected val stepLabel: JLabel = new JLabel("Steps: 0")
+    protected val agentsLabel: JLabel = new JLabel("Agents: 0")
 
     def initializeUI(): Unit = 
         setSize(800, 800)
@@ -21,6 +27,22 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
         gridPanel.setLayout(new GridLayout(environment.height, environment.width))
         add(gridPanel, BorderLayout.CENTER)
+        setupStatsPanel()
+
+    def setupStatsPanel(): Unit = 
+        statsPanel.setLayout(new GridLayout(4, 1))
+        statsPanel.add(timerLabel)
+        statsPanel.add(stepLabel)
+        statsPanel.add(agentsLabel)
+        customizeStatsPanel()
+        add(statsPanel, BorderLayout.NORTH)
+
+        val timer = new Timer(1000, new ActionListener {
+            def actionPerformed(e: ActionEvent): Unit = updateStats()
+        })
+        timer.start()
+
+    def customizeStatsPanel(): Unit = ()
 
     def drawGrid(): Unit = 
         gridPanel.removeAll()
@@ -45,5 +67,15 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
         val b: JButton = new JButton(name)
         b.addActionListener(al)
         add(b, bLayout)
+
+    def updateStats(): Unit = {
+        val elapsedTime = simulator.getElapsedTime / 1000
+        timerLabel.setText(s"Time: $elapsedTime")
+        stepLabel.setText(s"Steps: ${simulator.currentStep}")
+        agentsLabel.setText(s"Agents: ${environment.agentManager.agents.size}")
+        updateCustomStats()
+    }
+
+    def updateCustomStats(): Unit = ()
 
 

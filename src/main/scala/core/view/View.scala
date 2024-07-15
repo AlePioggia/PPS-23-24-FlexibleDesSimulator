@@ -68,13 +68,12 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
         b.addActionListener(al)
         add(b, bLayout)
 
-    def updateStats(): Unit = {
+    def updateStats(): Unit =
         val elapsedTime = simulator.getElapsedTime / 1000
         timerLabel.setText(s"Time: $elapsedTime")
         stepLabel.setText(s"Steps: ${simulator.currentStep}")
         agentsLabel.setText(s"Agents: ${environment.agentManager.agents.size}")
         updateCustomStats()
-    }
 
     def updateCustomStats(): Unit = ()
 

@@ -7,6 +7,7 @@ import robotswarm.model.ai.TaskAllocator
 import utils.Direction
 import scala.collection.mutable
 import robotswarm.model.ai.AStar
+import core.model.Agent
 
 case class RobotMoveEvent(time: Double, robot: Robot, environment: RobotEnvironment) extends Event
 case class AllRobotMovesEvent(time: Double, environment: RobotEnvironment) extends Event
@@ -30,13 +31,19 @@ class RobotSwarmSimulator extends BasicSimulator:
             })
         case _ => super.handleEvent(event)
 
-    def setup(environment: RobotEnvironment): Map[RobotId, Iterator[Direction]] = {
+    def setup(environment: RobotEnvironment): Map[RobotId, Iterator[Direction]] =
         val robots = environment.agentManager.agents.asInstanceOf[scala.collection.mutable.Set[Robot]]
         val objects = environment.objectManager.objsPosList
         var assignments = TaskAllocator.assignTasks(robots, objects)        
         paths ++= assignments.map { case (robot, goal) => {robot.goal = goal; (robot.id, ReversibleIterator(AStar.findPath(robot.pos, goal, environment).iterator))}}
         paths
-    }
+
+    def getCurrentCarriedObjectsState(environment: RobotEnvironment): Int = 
+        environment.agentManager.agents.map(agent => {
+            agent match
+                case robot: Robot  =>
+                    (robot.id, robot.isCarrying) 
+                }).toMap.filter(_._2).size
 
 import scala.collection.mutable
 

@@ -17,6 +17,7 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
 
   protected val pickupObjs: JLabel = new JLabel("Pickup objects: 0")
   protected val pickedUpObjs: JLabel = new JLabel("Picked up objects: 0")
+  var i: Int = 0
 
   override def updatePanel(cell: JPanel, pos: Position): JPanel =
     val robot = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Robot])
@@ -31,14 +32,11 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
     cell
   
   override def customizeStatsPanel(): Unit = 
-    val pickupObjLabel: JLabel = new JLabel("Pickup Objects: " + environment.objectManager.objsPosList.size)
-    statsPanel.add(pickupObjLabel)
-    val pickedUpObjsLabel : JLabel = new JLabel("Objects picked up: " + environment.agentManager.agents.map(_.asInstanceOf[Robot].isCarrying).size)
-    statsPanel.add(pickedUpObjsLabel)
+    statsPanel.add(pickedUpObjs)
 
   override def updateCustomStats(): Unit = 
     pickupObjs.setText("Pickup objects: " + environment.objectManager.objsPosList.size)
-    pickedUpObjs.setText("Picked up objects: " + environment.agentManager.agents.map(_.asInstanceOf[Robot].isCarrying).size)
+    pickedUpObjs.setText("Picked up objects: " + simulator.getCurrentCarriedObjectsState(environment))
 
 
   

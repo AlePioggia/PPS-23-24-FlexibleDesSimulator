@@ -14,6 +14,7 @@ object App:
     def main(args: Array[String]): Unit = 
         val environment = AntsEnvironment(10, 10)
         val simulator = AntSwarmSimulator()
+        val n = args(0).toInt
 
         val ants: Set[Ant] = Set(
             Ant(1, Position(2, 1), Direction.North, Position(0, 0)),
@@ -23,9 +24,7 @@ object App:
         )
 
         ants.foreach(environment.agentManager.addAgent)
-        val objects = List(Position(1, 1), Position(1, 3), Position(2, 4))
-        objects.foreach(environment.objectManager.addObject)
-        println(environment.objectManager.objsPosList)
+        environment.placeRandomPickupObjs(n)
 
         val view = AntSwarmView(environment, simulator)
         val controller = AntsSwarmController(environment, simulator, view)

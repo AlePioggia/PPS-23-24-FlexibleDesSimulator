@@ -14,7 +14,14 @@ object MainMenuApp extends App:
 
   antsButton.addActionListener(new ActionListener {
     def actionPerformed(e: ActionEvent): Unit = {
-      new Thread(() => antsswarm.App.main(Array.empty)).start()
+      val n = JTextField(5)
+      
+      val panel = JPanel()
+      panel.add(JLabel("food units:"))
+      panel.add(n)
+      val result = JOptionPane.showConfirmDialog(null, panel, "Enter Robot swarm Parameters", JOptionPane.OK_CANCEL_OPTION)
+      if (result == JOptionPane.OK_OPTION)
+        new Thread(() => antsswarm.App.main(Array(n.getText()))).start()
     }
   })
 

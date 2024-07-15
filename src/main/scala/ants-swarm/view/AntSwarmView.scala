@@ -28,11 +28,6 @@ class AntSwarmView(override val environment: AntsEnvironment, override val simul
             case false => ()
         }
 
-        ant match {
-            case Some(ant) => if ant.carryingFood then cell.setToolTipText("pippo")
-            case None => ()
-        }
-
         val pheromoneLevel = environment.pheromoneManager.pheromone(pos)
         var pheromoneLabel: JLabel = new JLabel(f"$pheromoneLevel%.1f")
         pheromoneLabel.setForeground(Color.WHITE)

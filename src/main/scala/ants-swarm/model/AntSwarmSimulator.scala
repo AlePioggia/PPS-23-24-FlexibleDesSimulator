@@ -2,6 +2,7 @@ package `antsswarm`.model
 
 import core.simulator.Event
 import core.simulator.BasicSimulator
+import utils.Position
 
 case class AntMoveEvent(time: Double, ant: Ant, environment: AntsEnvironment) extends Event
 case class AllAntMovesEvent(time: Double, environment: AntsEnvironment) extends Event

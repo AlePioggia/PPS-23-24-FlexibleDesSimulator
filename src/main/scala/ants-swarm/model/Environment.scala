@@ -46,10 +46,7 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
         val n = neighbors(ant.pos)
         if n.isEmpty then return ant.pos
         if (Random.nextDouble() < 0.3)
-            println(s"Random index size: ${n.size}")
-            println(s"neighbors: $n")
             val randomIndex = Random.nextInt(n.size)
-            println(s"Random index: $randomIndex")
             n(randomIndex)
         else
             val result = neighbors(ant.pos)
@@ -63,10 +60,7 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
                     else None
                 }
             result.getOrElse {
-                println(s"neighbors: ${n}")
-                println(s"Random index (fallback) size: ${n.size}")
                 val randomIndex = Random.nextInt(n.size)
-                println(s"Random index (fallback): $randomIndex")
                 n(randomIndex)
             }
 

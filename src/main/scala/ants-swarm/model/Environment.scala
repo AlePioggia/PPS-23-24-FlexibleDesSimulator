@@ -25,6 +25,8 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
         pheromoneManager.evaporatePheromones(0.1)
         pheromoneManager.increasePheromone(agent.pos, 0.5, agent.id)
 
+    def nestPositions: Set[Position] = agentManager.agents.map(agent => agent match {case ant: Ant => ant.nestPos}).toSet
+
     private def moveToNest(ant: Ant): Position = 
         val pos = ant.pos
         val nestPos = ant.nestPos

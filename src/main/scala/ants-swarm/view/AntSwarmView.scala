@@ -12,6 +12,8 @@ import javax.swing.BorderFactory
 
 class AntSwarmView(override val environment: AntsEnvironment, override val simulator: AntSwarmSimulator) extends View(environment, simulator):
 
+    protected val nestLabel: JLabel = new JLabel("Nest: []")
+
     override def updatePanel(cell: JPanel, pos: Position): JPanel = 
         val ant = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Ant])
         ant match {
@@ -30,7 +32,12 @@ class AntSwarmView(override val environment: AntsEnvironment, override val simul
 
         val pheromoneLevel = environment.pheromoneManager.pheromone(pos)
         var pheromoneLabel: JLabel = new JLabel(f"$pheromoneLevel%.1f")
-        pheromoneLabel.setForeground(Color.WHITE)
+        pheromoneLabel.setForeground(Color.orange)
         cell.add(pheromoneLabel)
 
         cell
+
+    override def customizeStatsPanel(): Unit = 
+        statsPanel.add(nestLabel)
+    override def updateCustomStats(): Unit = 
+        nestLabel.setText("Nest: " + environment.nestPositions)

@@ -19,7 +19,7 @@ object MainMenuApp extends App:
       val panel = JPanel()
       panel.add(JLabel("food units:"))
       panel.add(n)
-      val result = JOptionPane.showConfirmDialog(null, panel, "Enter Robot swarm Parameters", JOptionPane.OK_CANCEL_OPTION)
+      val result = JOptionPane.showConfirmDialog(null, panel, "Enter ants swarm Parameters", JOptionPane.OK_CANCEL_OPTION)
       if (result == JOptionPane.OK_OPTION)
         new Thread(() => antsswarm.App.main(Array(n.getText()))).start()
     }

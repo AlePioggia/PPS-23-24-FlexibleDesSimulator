@@ -22,7 +22,7 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
   override def updatePanel(cell: JPanel, pos: Position): JPanel =
     val robot = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Robot])
     robot match {
-      case Some(r) => if r.isCarrying then cell.add(new JLabel("C"))
+      case Some(r) => if r.isCarrying then {var label = new JLabel("C"); label.setForeground(Color.WHITE); cell.add(label)}
       case None => ()
     }
     environment.objectManager.isObjectAt(pos) match {

@@ -15,7 +15,12 @@ class AntSwarmView(override val environment: AntsEnvironment, override val simul
     override def updatePanel(cell: JPanel, pos: Position): JPanel = 
         val ant = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Ant])
         ant match {
-            case Some(a) => if a.carryingFood then cell.add(new JLabel("C"))
+            case Some(a) => 
+                if a.carryingFood then
+                    var label: JLabel = new JLabel 
+                    label.setForeground(Color.WHITE)
+                    label.setText("C")
+                    cell.add(label)
             case None => () 
         }
         environment.objectManager.isObjectAt(pos) match {
@@ -29,7 +34,8 @@ class AntSwarmView(override val environment: AntsEnvironment, override val simul
         }
 
         val pheromoneLevel = environment.pheromoneManager.pheromone(pos)
-        val pheromoneLabel = new JLabel(f"$pheromoneLevel%.1f")
+        var pheromoneLabel: JLabel = new JLabel(f"$pheromoneLevel%.1f")
+        pheromoneLabel.setForeground(Color.WHITE)
         cell.add(pheromoneLabel)
 
         cell

@@ -44,10 +44,15 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
     
     private def moveToFood(ant: Ant): Position = 
         val n = neighbors(ant.pos)
+        if n.isEmpty then return ant.pos
         if (Random.nextDouble() < 0.3)
-            n(Random.nextInt(n.size))
+            println(s"Random index size: ${n.size}")
+            println(s"neighbors: $n")
+            val randomIndex = Random.nextInt(n.size)
+            println(s"Random index: $randomIndex")
+            n(randomIndex)
         else
-            neighbors(ant.pos)
+            val result = neighbors(ant.pos)
                 .filter(p => pheromoneManager.pheromoneSource(p) != Some(ant.id))
                 .map(p => (p, pheromoneManager.pheromone(p)))
                 .groupBy(_._2)
@@ -57,6 +62,12 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
                     if bestPositions.nonEmpty then Some(bestPositions(Random.nextInt(bestPositions.size)))
                     else None
                 }
-                .getOrElse(n(Random.nextInt(n.size)))
+            result.getOrElse {
+                println(s"neighbors: ${n}")
+                println(s"Random index (fallback) size: ${n.size}")
+                val randomIndex = Random.nextInt(n.size)
+                println(s"Random index (fallback): $randomIndex")
+                n(randomIndex)
+            }
 
         

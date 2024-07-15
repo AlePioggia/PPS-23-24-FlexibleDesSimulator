@@ -22,6 +22,7 @@ object App:
     environment.placeRandomAgents(n, 1)
     println(environment.agentManager.agents)
     val objects = environment.placeRandomPickupObjs(n)
+    println(environment.objectManager.objsPosList)
 
     simulator.setup(environment)
 

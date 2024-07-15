@@ -51,7 +51,7 @@ class Environment(val width: Int, val height: Int) extends Grid:
 
     def placeRandomPickupObjs(n: Int): Unit =
         val pos: Position = populateGrid(n)
-        if pos == Position(0, 0) then return
+        if pos.x == 0 && pos.y == 0 then return
         objectManager.addObject(pos)
         placeRandomPickupObjs(n - 1)
 

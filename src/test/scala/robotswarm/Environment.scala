@@ -34,4 +34,17 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
         env.moveAgent(robot)
         env.isRobotCarrying(1) should be (true)
     }
+
+    it should "correctly place a random amount of agents on the grid" in {
+        val env = new RobotEnvironment(10, 10)
+        env.placeRandomAgents(10, 1)
+        env.agentManager.agents.size should be (10)
+    }
+
+    it should "refuse to place more agents than the grid can hold" in {
+        val env = new RobotEnvironment(10, 10)
+        assertThrows[IllegalArgumentException] {
+            env.placeRandomAgents(101, 1)
+        }
+    }
 }

@@ -30,7 +30,9 @@ class RobotSwarmSimulator extends BasicSimulator:
             })
         case _ => super.handleEvent(event)
 
-    def setup(robots: scala.collection.mutable.Set[Robot], environment: RobotEnvironment, objects: List[Position]): Map[RobotId, Iterator[Direction]] = {
+    def setup(environment: RobotEnvironment): Map[RobotId, Iterator[Direction]] = {
+        val robots = environment.agentManager.agents.asInstanceOf[scala.collection.mutable.Set[Robot]]
+        val objects = environment.objectManager.objsPosList
         var assignments = TaskAllocator.assignTasks(robots, objects)        
         paths ++= assignments.map { case (robot, goal) => {robot.goal = goal; (robot.id, ReversibleIterator(AStar.findPath(robot.pos, goal, environment).iterator))}}
         paths

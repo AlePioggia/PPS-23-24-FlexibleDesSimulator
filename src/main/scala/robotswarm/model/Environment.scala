@@ -7,12 +7,17 @@ import core.model.Agent
 import core.model.Grid
 import core.model.AgentManager
 import core.model.PickupObjsManager
+import utils.Direction
 
 class RobotEnvironment(width: Int, height: Int) extends Environment(width: Int, height: Int) with Grid:
     
     override def interactWithObject(agent: Agent): Unit = agent match
         case robot: Robot =>
             if (robot.pos == robot.goal) then {robot.pickUp(); objectManager.removeObject(robot.pos)}
+        
+    override def generateAgent(id: Int, pos: Position): Unit = 
+        val robot = Robot(id)(pos)(Direction.North)
+        agentManager.addAgent(robot)
     
     def isRobotCarrying(id: Int): Boolean =
         agentManager.agents.find(_.id == id).map(_ match

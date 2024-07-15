@@ -57,7 +57,7 @@ class Environment(val width: Int, val height: Int) extends Grid:
 
     def placeRandomAgents(n: Int, acc: Int): Unit = 
         val pos: Position = populateGrid(n)
-        if pos == Position(0, 0) then return
+        if pos.x == 0 && pos.y ==  0 then return
         generateAgent(acc, pos)
         placeRandomAgents(n - 1, acc + 1)
 

@@ -48,10 +48,9 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
         val n = neighbors(ant.pos)
         if n.isEmpty then return ant.pos
         if (Random.nextDouble() < 0.3)
-            val randomIndex = Random.nextInt(n.size)
-            n(randomIndex)
+            n(Random.nextInt(n.size))
         else
-            val result = neighbors(ant.pos)
+            neighbors(ant.pos)
                 .filter(p => pheromoneManager.pheromoneSource(p) != Some(ant.id))
                 .map(p => (p, pheromoneManager.pheromone(p)))
                 .groupBy(_._2)
@@ -61,9 +60,6 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
                     if bestPositions.nonEmpty then Some(bestPositions(Random.nextInt(bestPositions.size)))
                     else None
                 }
-            result.getOrElse {
-                val randomIndex = Random.nextInt(n.size)
-                n(randomIndex)
-            }
+                .getOrElse(n(Random.nextInt(n.size)))
 
         

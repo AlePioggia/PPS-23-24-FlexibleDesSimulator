@@ -8,9 +8,11 @@ import utils.Direction
 import scala.collection.mutable
 import robotswarm.model.ai.AStar
 import core.model.Agent
+import scala.collection.mutable
 
 case class RobotMoveEvent(time: Double, robot: Robot, environment: RobotEnvironment) extends Event
 case class AllRobotMovesEvent(time: Double, environment: RobotEnvironment) extends Event
+
 type RobotId = Int
 
 class RobotSwarmSimulator extends BasicSimulator:
@@ -44,8 +46,6 @@ class RobotSwarmSimulator extends BasicSimulator:
                 case robot: Robot  =>
                     (robot.id, robot.isCarrying) 
                 }).toMap.filter(_._2).size
-
-import scala.collection.mutable
 
 class ReversibleIterator[T](underlying: Iterator[T]) extends Iterator[T] {
     private val buffer = mutable.Stack[T]()

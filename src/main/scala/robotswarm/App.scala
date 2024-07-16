@@ -20,9 +20,7 @@ object App:
     val simulator = new RobotSwarmSimulator
     
     environment.placeRandomAgents(n, 1)
-    println(environment.agentManager.agents)
-    val objects = environment.placeRandomPickupObjs(n)
-    println(environment.objectManager.objsPosList)
+    environment.placeRandomPickupObjs(n)
 
     simulator.setup(environment)
 

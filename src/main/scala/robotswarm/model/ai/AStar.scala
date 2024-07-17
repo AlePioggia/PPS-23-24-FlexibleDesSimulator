@@ -38,22 +38,18 @@ object AStar:
 
     private def manhattanDistance(start: Position, goal: Position): Double =
         Math.abs(start.x - goal.x) + Math.abs(start.y - goal.y)
-    
+
     private def reconstructPath(cameFrom: mutable.Map[Position, Position], current: Position): List[Direction] =
-        var path = List[Direction]()
-        var curr = current
-        while cameFrom.contains(curr) do
-            val prev = cameFrom(curr)
-            path = calculateDirection(prev, curr) :: path
-            curr = prev
-        path
+        if !cameFrom.contains(current) then List.empty
+        else
+            val prev = cameFrom(current)
+            calculateDirection(prev, current) :: reconstructPath(cameFrom, prev)
 
     private def calculateDirection(from: Position, to: Position): Direction =
         if to.x > from.x then Direction.East
         else if to.x < from.x then Direction.West
         else if to.y > from.y then Direction.South
         else Direction.North
-
 
 case class Node(position: Position, g: Double, h: Double):
   def f: Double = g + h

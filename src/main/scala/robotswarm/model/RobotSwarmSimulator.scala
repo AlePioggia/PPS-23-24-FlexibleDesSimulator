@@ -22,16 +22,20 @@ class RobotSwarmSimulator extends BasicSimulator:
         case RobotMoveEvent(_, robot, environment) =>
             environment.moveAgent(robot)
         case AllRobotMovesEvent(_, environment) =>
-            environment.agentManager.agents.foreach(robot => {
-                val iterator = paths(robot.id)
-                if iterator.hasNext then
-                    val direction: Direction = iterator.next()
-                    robot.dir = direction
-                    if environment.agentManager.isPositionValid(environment.nextPosition(robot)) then 
-                        environment.moveAgent(robot)
-                    else iterator.previous()
-            })
+            handleAllRobotMovesEvent(environment)
         case _ => super.handleEvent(event)
+
+    private def handleAllRobotMovesEvent(environment: RobotEnvironment): Unit = 
+        environment.agentManager.agents.foreach(agent => processRobotMove(agent.asInstanceOf[Robot], environment))
+
+    private def processRobotMove(robot: Robot, environment: RobotEnvironment): Unit =
+        val iterator = paths(robot.id)
+        if iterator.hasNext then
+            val direction: Direction = iterator.next()
+            robot.dir = direction
+            if environment.agentManager.isPositionValid(environment.nextPosition(robot)) then 
+                environment.moveAgent(robot)
+            else iterator.previous()
 
     def setup(environment: RobotEnvironment): Map[RobotId, Iterator[Direction]] =
         val robots = environment.agentManager.agents.asInstanceOf[scala.collection.mutable.Set[Robot]]

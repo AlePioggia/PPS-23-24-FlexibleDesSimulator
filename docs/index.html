@@ -215,9 +215,16 @@
                 <li>The code shown indicates the main method, omitting some private methods for clarity.</li>
             </ul>
 
+            <h4><strong>Architecture</strong></h4>
+
+            Simple and straightforward, just 2 main classes and some utilities are enough to implement the A* algorithm. The main classes are:
+
             <img src="AStar_impl.png" alt="aStar" style="width: 80%;">
 
+            <h4><strong>Findpath</strong></h4>
+
             The findPath method is the implementation of the AStar algorithm. The mechanisms and choices are explained below:
+            <img src="Astar_code.png" alt="aStarCode" style="width: 80%;">
             <h4>Priority queue</h4>
             A mutable priority queue was used to keep track of nodes to be evaluated, prioritized by their fscore. This ensures that the node with the lowest estimated total cost is processed first.
             <h4>Data structures</h4>
@@ -238,8 +245,12 @@
             <h4>Performance</h4>
             he priority queue operations are efficient but can be impacted by the number of nodes. In practice, the A* algorithm performs well with appropriate heuristics and can handle large-scale environments effectively. 
             Optimizations may include using more sophisticated data structures or heuristics tailored to specific environments.
-            <img src="Astar_code.png" alt="aStarCode" style="width: 80%;">
 
+            <h4><strong>Task allocator</strong></h4>
+
+            The TaskAllocator object is designed to assign tasks to a set of robots based on their proximity to a list of objects. The core functionality is implemented in the assignTasks method, which uses a greedy approach to ensure each robot is allocated the closest available object.
+            This approach is straightforward and effective for scenarios where tasks need to be dynamically assigned based on real-time conditions.
+            
             <img src="Task_Allocator_code.png" alt="taskAllocatorCode" style="width: 80%;">
         </section>
         

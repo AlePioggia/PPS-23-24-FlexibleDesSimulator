@@ -200,7 +200,28 @@
 
             <h3>Detailed robot</h3>
 
+            This section aims to describe the detail design of the robot (robotswarm scope), which is perhaps the most complex agent, is explored in depth, in this regard.
+            Key aspects of this design include the use of scala's traits for modularity, enums for type safety and companion objects for controlled object creation and incapsulation. The focus was to favour
+            flexibility and maintainability, allowing for easy extension and modification of the robot's behaviour.
+
             <img src="detailed_robot.png" alt="robot architecture" style="width: 80%;">
+
+            <h4>Encapsulation</h4>
+
+            The design leverages encapsulation effectively by employing nested classes within the Robot companion object, this approach hides implementation details and ensures that the internal workings of the robot are not exposed.
+            By keeping BaseRobotImpl and RobotImpl private as inner classes of the Robot object, the design enforces encapsulation and prevents direct access to these classes from external sources.
+
+            <h4>Trait composition</h4>
+
+            The Robot trait is composed of multiple traits, each responsible for a specific aspect of the robot's functionality. The baseRobot trait implements basic robot functionalities, by extending the Robot trait. This trait 
+            is intended to be used by other traits or classes to provide a foundation without needing to duplicate the implementation. 
+            The batteryPowered trait adds complexity, by expliciting battery management. By using abstract override it extends the behaviour of the move method.
+
+            <h4>Design patters used</h4>
+
+            The apply methods in the companion object facilitate the Robot's instances creation, by providing a factory method for the creation of different types of robots. 
+            The trait composition is linked with the strategy pattern, as it allows for the dynamic selection of behaviours at runtime. 
+            The template method pattern is also used, as the move method is defined in the Robot trait and implemented in the extending classes.
 
         </section>
         

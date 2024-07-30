@@ -173,6 +173,19 @@
         
         <section id="implementation">
             <h2>Implementation</h2>
+            <p>
+                One of the core features of the project is the artificial intelligence implemented for the robot swarm. 
+                In particular, I chose to use the A* algorithm for finding the optimal path from point A to point B. Since the robot operates in a 2D environment, I implemented the A* algorithm to consider only horizontal and vertical movements.
+                For each robot, the path to optimally reach the target was calculated in advance. To achieve this, it was necessary to also create a taskAllocator, which, based on a distance calculation, assigns tasks to robots 
+                (one-to-one with objects) in an optimal manner. The paths were converted into iterators so that each robot can move towards the target at each step. Specifically, the iterator is reversible, allowing the use of the previous() 
+                function to go backward if needed.
+                The challenge lies in the fact that:
+            </p>
+            <ul>
+                <li>Robots must collect only their own objects;</li>
+                <li>The code shown indicates the main method, omitting some private methods for clarity.</li>
+            </ul>
+
             <img src="AStar_impl.png" alt="aStar" style="width: 80%;">
             <img src="Astar_code.png" alt="aStarCode" style="width: 80%;">
             <img src="Task_Allocator_code.png" alt="taskAllocatorCode" style="width: 80%;">

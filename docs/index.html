@@ -108,20 +108,22 @@
 
                 <h3>SWARM ROBOTICS<h3>
 
-                Swarm robotics is a field that involves the coordination of multiple robots to achieve a common goal. These robots interact with each other and their environment to perform tasks that would be challenging or impossible for a single robot. Swarm robotics draws inspiration from the collective behavior of social insects, such as ants and bees, to develop algorithms and strategies for robotic systems. 
+                <p>Swarm robotics is a field that involves the coordination of multiple robots to achieve a common goal. These robots interact with each other and their environment to perform tasks that would be challenging or impossible for a single robot. Swarm robotics draws inspiration from the collective behavior of social insects, such as ants and bees, to develop algorithms and strategies for robotic systems. 
                 In this particular case I chose to make robots collect objects in a 2D environment, by calculating the optimal path in order to save energy and time. It can be seen as an object picking problem, like in a warehouse,
-                where robots have to collect objects and bring them to a specific location.
+                where robots have to collect objects and bring them to a specific location.</p>
 
                 <h3>ANT COLONY OPTIMIZATION</h3> 
 
-                Ant colony optimization (ACO) is a metaheuristic optimization algorithm inspired by the foraging behavior of ants. ACO algorithms are used to solve combinatorial optimization problems by simulating the behavior of ant colonies
+                <p>Ant colony optimization (ACO) is a metaheuristic optimization algorithm inspired by the foraging behavior of ants. ACO algorithms are used to solve combinatorial optimization problems by simulating the behavior of ant colonies
                 searching for food. Si differenzia dallo robotics swarm perché, mentre nel caso dei robot swarm i robot seguono un path preciso, che ha un tasso di variabilità molto basso, nel caso dell'ACO gli agenti si muovono nell'ambiente 
-                regolandosi in funzione dei feromoni, rilasciati dalle altre formiche. 
+                regolandosi in funzione dei feromoni, rilasciati dalle altre formiche.</p>
 
                 <h3>PARTICLE SWARM OPTIMIZATION</h3>
 
+                <p>
                 Particle swarm optimization (PSO) is a population-based optimization algorithm inspired by the social behavior of birds flocking or fish schooling, where individuals adjust their positions based on their own experience and the experience of their neighbors.
                 PSO algorithms are used to solve optimization problems by simulating the movement of particles in a search space, with each particle representing a potential solution to the problem.
+                </p>
 
             <h3>Project Objectives</h3>
             <p>The primary goal of this project was to create a simulation engine detached from specific swarm intelligence strategies.
@@ -138,16 +140,33 @@
         
         <section id="development-methodology">
             <h2>Development Methodology</h2>
-            <p>This section outlines the development methodology followed in the project.</p>
-            
-            <h3>Technologies Used</h3>
+            <p>The development of the simulation engine and swarm intelligence strategies was guided by the principles of test-driven development (TDD), build automation, and continuous integration. </p>
+
+            <h3>Test driven development</h3>
+            <p>Test-driven development (TDD) is a software development approach that emphasizes writing tests before writing the actual code. This practice ensures that the code is testable, reliable, and meets the specified requirements.
+                It was strictly followed the red-green-refactor rule, which involves writing a failing test (red), implementing the code to pass the test (green), and refactoring the code to improve its design and maintainability. 
+                The tests were written using <strong>ScalaTest</strong>, a testing framework for Scala, which provides a wide range of features for writing different types of tests, such as unit tests, integration tests, and acceptance tests.
+                Codium was also used to verify test coverage, providing insights into the effectiveness of the test suite and identifying areas that require additional testing.
+            </p>
+            <h3>Build automation</h3>
+            <p>
+                In this project, <strong>SBT (Scala Build Tool)</strong> was used to automate the build process, manage dependencies, and run tests. 
+                SBT simplifies the development workflow by providing a unified interface for compiling, testing, and packaging the code. It also facilitates the integration of third-party libraries and tools, enhancing productivity and code quality.
+            </p>
+            <h3>Continuos integration</h3>
+            <p>
+                <strong>Travis CI</strong> was used for continuous integration, automating the build and test process for every code commit. 
+                This practice ensures that the codebase remains stable and functional throughout the development cycle, enabling early detection of bugs and issues. 
+                The integration with Travis CI also provides insights into the test results and code coverage, helping maintain a high-quality codebase.
+            </p>
+
+            <h3>Technologies used (recap)</h3>
             <ul>
                 <li><strong>Travis CI:</strong> Continuous integration service for automated builds and tests.</li>
                 <li><strong>ScalaTest:</strong> Testing framework for Scala.</li>
                 <li><strong>Scoverage:</strong> Tool for measuring code coverage.</li>
                 <li><strong>Codium:</strong> Service for test coverage verification using artificial intelligence.</li>
                 <li><strong>SBT:</strong> Build automation tool for Scala projects.</li>
-                <li><strong>FindBugs and Scalastyle:</strong> Tools for static code analysis and applying code styling conventions.</li>
             </ul>
         </section>
         

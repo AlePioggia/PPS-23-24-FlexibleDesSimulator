@@ -93,7 +93,36 @@
             <h2>Introduction</h2>
             <p>In today's dynamic world, the study and application of swarm intelligence have become increasingly relevant across various fields, from optimization problems to robotics. 
                 To facilitate experimentation and exploration within this domain, we have developed a discrete event simulation (DES) framework with a core designed to be technology-agnostic. 
-                This framework prioritizes modularity, extensibility, and flexibility, enabling the seamless integration of diverse swarm intelligence strategies without necessitating alterations to the simulation core.</p>
+                This framework prioritizes modularity, extensibility, and flexibility, enabling the seamless integration of diverse swarm intelligence strategies without necessitating alterations to the simulation core.
+                
+                Swarm intelligence is a collective behavior exhibited by decentralized, self-organized systems, such as social insect colonies or flocks of birds. 
+                These systems demonstrate emergent properties that enable them to solve complex problems more efficiently than individual agents, often drawing inspiration from natural phenomena.
+                In this project I chose to implement those swarms:            
+            </p>
+                
+                <ul>
+                    <li>Ant Colony Optimization (ACO)</li>
+                    <li>Swarm Robotics</li>
+                    <li>Particle Swarm Optimization (PSO)</li>
+                </ul>
+
+                <h3>SWARM ROBOTICS<h3>
+
+                Swarm robotics is a field that involves the coordination of multiple robots to achieve a common goal. These robots interact with each other and their environment to perform tasks that would be challenging or impossible for a single robot. Swarm robotics draws inspiration from the collective behavior of social insects, such as ants and bees, to develop algorithms and strategies for robotic systems. 
+                In this particular case I chose to make robots collect objects in a 2D environment, by calculating the optimal path in order to save energy and time. It can be seen as an object picking problem, like in a warehouse,
+                where robots have to collect objects and bring them to a specific location.
+
+                <h3>ANT COLONY OPTIMIZATION</h3> 
+
+                Ant colony optimization (ACO) is a metaheuristic optimization algorithm inspired by the foraging behavior of ants. ACO algorithms are used to solve combinatorial optimization problems by simulating the behavior of ant colonies
+                searching for food. Si differenzia dallo robotics swarm perché, mentre nel caso dei robot swarm i robot seguono un path preciso, che ha un tasso di variabilità molto basso, nel caso dell'ACO gli agenti si muovono nell'ambiente 
+                regolandosi in funzione dei feromoni, rilasciati dalle altre formiche. 
+
+                <h3>PARTICLE SWARM OPTIMIZATION</h3>
+
+                Particle swarm optimization (PSO) is a population-based optimization algorithm inspired by the social behavior of birds flocking or fish schooling, where individuals adjust their positions based on their own experience and the experience of their neighbors.
+                PSO algorithms are used to solve optimization problems by simulating the movement of particles in a search space, with each particle representing a potential solution to the problem.
+
             <h3>Project Objectives</h3>
             <p>The primary goal of this project was to create a simulation engine detached from specific swarm intelligence strategies.
                  This engine serves as a foundation for the development and integration of various swarm intelligence approaches, allowing for agile experimentation and comparison.</p>

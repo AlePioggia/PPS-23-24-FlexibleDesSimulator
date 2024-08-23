@@ -72,6 +72,3 @@ object MainMenuApp extends App:
     }
   })
 
-object Try extends App:
-  PrologEngine.testDoubleArray(Array(1.0, 2.0, 3.0))
-

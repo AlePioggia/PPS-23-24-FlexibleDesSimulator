@@ -1,11 +1,3 @@
-matrix([
-  [0, 1, 0, 0, 0],
-  [0, 1, 0, 1, 0],
-  [0, 0, 0, 1, 0],
-  [0, 1, 1, 1, 0],
-  [0, 0, 0, 0, 0]
-]).
-
 % Movement directions: down, up, right, left
 direction((1, 0)).
 direction((-1, 0)).

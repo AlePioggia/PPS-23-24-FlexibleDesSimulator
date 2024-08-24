@@ -23,9 +23,11 @@ object PrologEngine {
 
   def testAStar(matrix: Array[Array[scala.Int]], startPos: Position, goal: Position): Unit =
     var matrixString = matrixToPrologString(matrix)
-    println(matrixString)
-    val query = s"find_path((0,0), (4,4), Path)."
+    var start = s"(${startPos.x}, ${startPos.y})"
+    var end = s"(${goal.x}, ${goal.y})"
+    val query = s"find_path(${start}, ${end}, Path)."
     val solution: SolveInfo = engine.solve(query)
+    print("Solution: " + solution)
 
   // main to test
   def main(args: Array[String]): Unit = {
@@ -39,12 +41,11 @@ object PrologEngine {
 
     var mString = "matrix([" + matrixToPrologString(matrix) + "])."
     var newTheoryString = mString + "\n" + theoryString
-    
+
     engine.addTheory(new Theory(mString + "\n" + theoryString))
 
     val startPos = Position(0, 0)
     val goal = Position(4, 4)
-
     testAStar(matrix, startPos, goal)
   }
 }

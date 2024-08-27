@@ -1,6 +1,5 @@
 package robotswarm.controller
 
-//implement controller based on model and view
 import robotswarm.model.{RobotSwarmSimulator, RobotMoveEvent, AllRobotMovesEvent}
 import robotswarm.view.RobotSwarmView
 import robotswarm.model.RobotEnvironment

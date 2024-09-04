@@ -17,16 +17,25 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
 
   protected val pickupObjs: JLabel = new JLabel("Pickup objects: 0")
   protected val pickedUpObjs: JLabel = new JLabel("Picked up objects: 0")
+  val grayCells = scala.collection.mutable.Set[Position]()
   var i: Int = 0
 
   override def updatePanel(cell: JPanel, pos: Position): JPanel =
     val robot = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Robot])
 
-
     robot match {
-      case Some(r) => if r.isCarrying then {environment.agentManager.removeAgent(r)}
-      case None => ()
+      case Some(r) =>
+        if r.isCarrying && r.pos == r.goal then
+          environment.agentManager.removeAgent(r)
+          grayCells += pos
+        else
+          val label = new JLabel("r") 
+          cell.add(label)
+      case None => 
+        if grayCells.contains(pos) then
+          cell.setBackground(Color.GRAY)
     }
+
     environment.objectManager.isObjectAt(pos) match {
       case true => cell.setBackground(Color.GREEN)
       case false => ()

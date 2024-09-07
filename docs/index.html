@@ -270,7 +270,7 @@
 
             <h4>Event</h4>
 
-            The simulator operates on an event-based model, the Event trait represents the base structure of an event, which is defined by its time.
+            Event trait represents the base structure of an event, which is defined by its time, it favours type-safety.
 
             <h4>State management</h4>
 
@@ -278,7 +278,7 @@
 
             <h4>Simulation</h4>
 
-            Il trait simulator is the core of the project, it defines the basic structure of a simulation, which is composed of a priority queue of events and a state. 
+            Simualtor trait is projects' core, it defines the basic structure of a simulation, which is composed of a priority queue of events and a state. 
             The simulation is started by calling the start method, which sets the state to running and processes the events in the queue until the state changes to stopped. 
             Basic simulator is a concrete implementation of the simulator trait, which serves these purposes:
             <ul>
@@ -345,15 +345,32 @@
                 Since it's a core's extension, the design is similar to the RobotSwarmSimulator, with some differences due to the implementation specifics.
             </p>
 
-            <img src="ants_architecture.png" alt="ants architecture" style="width: 50%; height: 50%">
+            <img src="ants_architecture.png" alt="ants architecture" style="width: 80%;">
 
             <h4>Pheromone manager</h4>
 
             The PheromoneManager manages the pheromone levels in the environment, ensuring that pheromones decay over time and are increased when ants deposit them. 
             The manager handles the pheromones, maintaining both the strength of the pheromones and their sources (ant IDs).
 
+            <h4>Ant</h4>
+
+            Ant, as shown in the UML diagram, is a class that extends Agent and abstracts the behavior of an ant. Specifically, each ant stores:
+            <ul>
+              <li>the position of the nest, which is a predefined point in the environment where it must deposit the collected food</li>
+              <li>the state `carryingFood`; if the ant has collected food, it will attempt to deposit it, otherwise, it will search for food by following pheromones.</li>
+            </ul>
+
+
+        <h3>Particle swarm architecture</h3>
+
+        Even though pso swarm is more interesting implementation wise, it's still important to notice some key architecture aspects, and choices.
+
+        <img src="pos_architecture.png" alt="pso architecture" style="width: 80%;">
+
+        As can be seen from the diagram, in order to build the PSO swarm environment, the builder pattern was used, due to high number of parameters needed.
+        In order to favour flexibility, the PSOEnvironment is composed of multiple traits, each responsible for a specific aspect of the PSO swarm functionality. 
+        Position utils provides utility methods for handling particle positions, while the calculateVelocity trait calculates the velocity of particles based on their current position and the global best position. 
         </section>
-        
         
         <section id="implementation">
             <h2>Implementation</h2>
@@ -404,10 +421,55 @@
 
             <h4><strong>Task allocator</strong></h4>
 
-            The TaskAllocator object is designed to assign tasks to a set of robots based on their proximity to a list of objects. The core functionality is implemented in the assignTasks method, which uses a greedy approach to ensure each robot is allocated the closest available object.
+            The TaskAllocator object is designed to assign tasks to a set of robots based on their proximity to a list of objects. 
+            The core functionality is implemented in the assignTasks method, which uses a greedy approach to ensure each robot is allocated the closest available object.
             This approach is straightforward and effective for scenarios where tasks need to be dynamically assigned based on real-time conditions.
             
             <img src="Task_Allocator_code.png" alt="taskAllocatorCode" style="width: 80%;">
+
+            <h3>Particle swarm optimization (PSO)</h3>
+            
+            <img src="pos_posEnvironment.png" alt="taskAllocatorCode" style="width: 80%;">
+
+            Fields:
+
+            <ul>
+                <li><code>globalBest</code> is the best position found by all particles so far;</li>
+                <li><code>globalBestFitness</code> is the fitness value associated with the globalBest, initialized to the highest possible value</li>
+            </ul>
+
+
+            Methods:
+
+            <ul>
+                <li><code>nextPosition</code> computes the particle's next position, based on its velocity. The new position is bounded and must be valid;</li>
+                <li><code>updatePersonalBests(particle: Particle)</code>if the particle's current position has better fitness value than its personal best, it updates it;</li>
+                <li><code>updateGlobalBests(particle: Particle)</code> same as updatePersonalBests but with global best as landmark;</li>
+                <li><code>preMoveActions(agent: Agents)</code> executes a set of actions before a particle moves, in this case, it calculates nextPosition;</li>
+                <li><code>postMoveActions(agent: Agents)</code> executes a set of actions after a move, in particular this method checks particle's fitness value. If the current position has a better fitness than its personalBest, it updates the value. If the particleìs fitness is better than the globalBest, it updates the globalBest as well.</li>
+            </ul>
+
+
+            <img src="pos_calculateVelocity.png" alt="taskAllocatorCode" style="width: 80%;">
+
+            VelocityUtils contains calculateVelocity, which updates particle position based on current velocity (inertia), global best (best position found till now during the simulation), and these params:
+            
+            <ul>
+                <li>w: inertia factor</li>
+                <li>c1: parameter that controls how much a particle is attracted to its personal best</li>
+                <li>c2: parameter that controls how much a particle is attracted to the global best</li>
+                <li>r1, r2: two random factors used to introduce diversity in the particle's behavior</li>
+            </ul>            
+
+            <img src="pos_positionUtils.png" alt="taskAllocatorCode" style="width: 80%;">
+
+            PositionUtils provides utility methods for handling particle positions, its methods are:
+            <ul>
+                <li><code>findValidPosition</code> generates infinite random positions, and returns the first free one</li>
+                <li><code>boundPosition</code>it assures that particles remain inside its boundaries</li>
+                <li><code>distance</code> </li>
+            </ul>
+
         </section>
         
         <section id="conclusions">

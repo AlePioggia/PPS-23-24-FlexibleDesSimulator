@@ -3,75 +3,126 @@
 <head>
     <title>Project Documentation</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            font-size: 30px;
-            color: #333;
-        }
-        nav {
-            width: 200px;
-            height: 100vh;
-            background-color: #333;
-            color: #fff;
-            position: fixed;
-            overflow-y: auto;
-            transition: width 0.3s;
-            z-index: 1000;
-        }
-        nav:hover {
-            width: 250px;
-        }
-        nav ul {
-            padding: 0;
-            list-style: none;
-            margin: 0;
-        }
-        nav a {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            padding: 15px;
-            transition: background-color 0.3s;
-        }
-        nav a:hover {
-            background-color: #555;
-        }
-        main {
-            margin-left: 200px;
-            padding: 20px;
-            background-color: #fff;
-            min-height: 100vh;
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-        h3 {
-            margin-top: 20px;
-            color: #555;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px 0;
-        }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-size: 90%;
-        }
+        /* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navigation Styles */
+nav {
+    width: 220px;
+    height: 100vh;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    overflow-y: auto;
+    transition: width 0.3s;
+    z-index: 1000;
+}
+
+nav:hover {
+    width: 250px;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+/* Main Content Styles */
+main {
+    margin-left: 220px;
+    padding: 20px;
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+/* Section Styles */
+section {
+    margin-bottom: 30px;
+}
+
+/* Typography for headings */
+
+/* Primary Header (H1) */
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #111;
+    border-bottom: 4px solid #555;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Secondary Header (H2) */
+h2 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 3px solid #888;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+/* Tertiary Header (H3) */
+h3 {
+    font-size: 26px;
+    font-weight: 500;
+    color: #444;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Quaternary Header (H4) */
+h4 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+/* List Styles */
+ul {
+    padding-left: 25px;
+}
+
+/* Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px 0;
+}
+
+/* Code Block Styling */
+code {
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 90%;
+    color: #d6336c;
+}
+
     </style>
 </head>
 <body>
@@ -100,29 +151,29 @@
                 These are the swarms chosen for this project:            
             </p>
                 
-                <ul>
-                    <li><a href="https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms">Ant Colony Optimization (ACO)</a></li>
-                    <li><a href="https://en.wikipedia.org/wiki/Swarm_robotics">Swarm Robotics</a></li>
-                    <li><a href="https://en.wikipedia.org/wiki/Particle_swarm_optimization">Particle Swarm Optimization (PSO)</a></li>
-                </ul>
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms">Ant Colony Optimization (ACO)</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Swarm_robotics">Swarm Robotics</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Particle_swarm_optimization">Particle Swarm Optimization (PSO)</a></li>
+            </ul>
 
-                <h3>SWARM ROBOTICS<h3>
+            <h3>SWARM ROBOTICS</h3>
 
-                <p>Swarm robotics is a field that involves the coordination of multiple robots to achieve a common goal. These robots interact with each other and their environment to perform tasks that would be challenging or impossible for a single robot.
-                In this particular case I chose to make robots collect objects in a 2D environment, by calculating the optimal path in order to save energy and time. It can be seen as an object picking problem, like in a warehouse,
+            <p>Swarm robotics is a field that involves the coordination of multiple robots to achieve a common goal. These robots interact with each other and their environment to perform tasks that would be challenging or impossible for a single robot.
+                In this particular case, I chose to make robots collect objects in a 2D environment, by calculating the optimal path in order to save energy and time. It can be seen as an object-picking problem, like in a warehouse,
                 where robots have to collect objects and bring them to a specific location.</p>
 
-                <h3>ANT COLONY OPTIMIZATION</h3> 
+            <h3>ANT COLONY OPTIMIZATION</h3> 
 
-                <p>Ant colony optimization (ACO) is a metaheuristic optimization algorithm inspired by the foraging behavior of ants. ACO algorithms are used to solve combinatorial optimization problems by simulating the behavior of ant colonies
-                searching for food. It differs from swarm robotics because, while in the case of swarm robots the robots follow a precise path with very low variability, in the case of ACO the agents move in the environment based on the pheromones released by other ants.</p>
+            <p>Ant colony optimization (ACO) is a metaheuristic optimization algorithm inspired by the foraging behavior of ants. ACO algorithms are used to solve combinatorial optimization problems by simulating the behavior of ant colonies
+            searching for food. It differs from swarm robotics because, while in the case of swarm robots the robots follow a precise path with very low variability, in the case of ACO the agents move in the environment based on the pheromones released by other ants.</p>
 
-                <h3>PARTICLE SWARM OPTIMIZATION</h3>
+            <h3>PARTICLE SWARM OPTIMIZATION</h3>
 
-                <p>
-                Particle swarm optimization (PSO) is a population-based optimization algorithm inspired by the social behavior of birds flocking or fish schooling, where individuals adjust their positions based on their own experience and the experience of their neighbors.
-                PSO algorithms are used to solve optimization problems by simulating the movement of particles in a search space, with each particle representing a potential solution to the problem.
-                </p>
+            <p>
+            Particle swarm optimization (PSO) is a population-based optimization algorithm inspired by the social behavior of birds flocking or fish schooling, where individuals adjust their positions based on their own experience and the experience of their neighbors.
+            PSO algorithms are used to solve optimization problems by simulating the movement of particles in a search space, with each particle representing a potential solution to the problem.
+            </p>
 
             <h3>Project Objectives</h3>
             <p>The primary goal of this project was to create a simulation engine detached from specific swarm intelligence strategies.
@@ -298,7 +349,7 @@
                 enhancements and changes.
             </p>
         
-            <h3>Composition</h3>
+            <h4>Composition</h4>
             <p>
                 Since the <code>Environment</code> can easily become a god-class, having to deal with a lot of dynamics, the use of composition 
                 is very useful. It enhances the separation of concerns principle by allowing independent component testing. It also favors 
@@ -306,7 +357,7 @@
                 focused on high-level functionality.
             </p>
 
-            <h3>Template method</h3>
+            <h4>Template method</h4>
             <p>
                 As can be seen in the <code>Environment</code> class, the moveAgent method is based off 3 methods, <code>preMoveActions(agent: Agent)</code>, <code>postMoveActions(agent: Agent)</code> and <code>interactWithObject(agent: Agent)</code> 
                 which are implemented by the extending classes. This allows for a more concise code structure and promotes code reuse.
@@ -416,7 +467,7 @@
                 <li>update the cameFrom, gScore and fScore maps accordingly and add the neighbor to the openSet if it's not already present.</li>
             </ul>
             <h4>Performance</h4>
-            he priority queue operations are efficient but can be impacted by the number of nodes. In practice, the A* algorithm performs well with appropriate heuristics and can handle large-scale environments effectively. 
+            Priority queue operations are efficient but can be impacted by the number of nodes. In practice, the A* algorithm performs well with appropriate heuristics and can handle large-scale environments effectively. 
             Optimizations may include using more sophisticated data structures or heuristics tailored to specific environments.
 
             <h4><strong>Task allocator</strong></h4>

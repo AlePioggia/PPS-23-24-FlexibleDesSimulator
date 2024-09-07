@@ -171,8 +171,7 @@
         
         <section id="system-analysis">
             <h2>System Analysis</h2>
-            <p>The requirements analysis phase is crucial for understanding the needs and expectations of the stakeholders, guiding the subsequent stages of system development.</p>
-
+        
             <h3>Business requirements</h3>
             <ul>
                 <li><strong>Provide a solid discrete event simulator</strong> which allows users to experiment without encountering problems</li>
@@ -263,6 +262,31 @@
         <section id="detailed-design">
             <h2>Detailed Design</h2>
 
+            <h3>Des simulator (core)</h3>
+
+            This section discusses the design of the project core, which is a des, agnostic simulator that is able to process a series of discrete events by exploiting a priority queue.
+
+            <img src="basic_simulator.png" alt="Environment architecture Diagram" style="width: 80%;">
+
+            <h4>Event</h4>
+
+            The simulator operates on an event-based model, the Event trait represents the base structure of an event, which is defined by its time.
+
+            <h4>State management</h4>
+
+            The simulator uses State, an enumeration useful to track its execution status and to manage the simulation lifecycle.
+
+            <h4>Simulation</h4>
+
+            Il trait simulator is the core of the project, it defines the basic structure of a simulation, which is composed of a priority queue of events and a state. 
+            The simulation is started by calling the start method, which sets the state to running and processes the events in the queue until the state changes to stopped. 
+            Basic simulator is a concrete implementation of the simulator trait, which serves these purposes:
+            <ul>
+                <li>provide a base, working implementation of a DES, while incapsulating simulation state and event handling;</li>
+                <li>leverage the Template Method pattern to define the basic execution flow, while allowing subclasses to modify or extend specific steps, in order to fit the individual swarm;</li>
+                <li>separate concerns, the handleEvent method is intended to be overridden to implement specific behaviours, while the simulator remains unchanged.</li>
+            </ul>
+
             <h3>Environment Structure</h3>
             <p>
                 The system simulates a virtual environment where agents and objects interact within a defined grid. The <code>Grid</code> 
@@ -296,7 +320,7 @@
             Key aspects of this design include the use of scala's traits for modularity, enums for type safety and companion objects for controlled object creation and incapsulation. The focus was to favour
             flexibility and maintainability, allowing for easy extension and modification of the robot's behaviour.
 
-            <img src="detailed_robot.png" alt="robot architecture" style="width: 80%;">
+            <img src="detailed_robot.png" alt="robot architecture" style="width: 50%; height: 50%">
 
             <h4>Encapsulation</h4>
 
@@ -314,6 +338,19 @@
             The apply methods in the companion object facilitate the Robot's instances creation, by providing a factory method for the creation of different types of robots. 
             The trait composition is linked with the strategy pattern, as it allows for the dynamic selection of behaviours at runtime. 
             The template method pattern is also used, as the move method is defined in the Robot trait and implemented in the extending classes.
+
+            <h3>Ant swarm on detail</h3>
+            <p>
+                The AntSwarmSimulator system simulates a virtual environment where ants, represented as agents, interact with objects like food sources and pheromones on a grid. 
+                Since it's a core's extension, the design is similar to the RobotSwarmSimulator, with some differences due to the implementation specifics.
+            </p>
+
+            <img src="ants_architecture.png" alt="ants architecture" style="width: 50%; height: 50%">
+
+            <h4>Pheromone manager</h4>
+
+            The PheromoneManager manages the pheromone levels in the environment, ensuring that pheromones decay over time and are increased when ants deposit them. 
+            The manager handles the pheromones, maintaining both the strength of the pheromones and their sources (ant IDs).
 
         </section>
         

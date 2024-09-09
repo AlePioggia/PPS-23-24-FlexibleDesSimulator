@@ -9,6 +9,7 @@ import scala.collection.mutable
 import robotswarm.model.ai.AStar
 import core.model.Agent
 import scala.collection.mutable
+import core.simulator.State
 
 case class RobotMoveEvent(time: Double, robot: Robot, environment: RobotEnvironment) extends Event
 case class AllRobotMovesEvent(time: Double, environment: RobotEnvironment) extends Event
@@ -50,6 +51,10 @@ class RobotSwarmSimulator extends BasicSimulator:
                 case robot: Robot  =>
                     (robot.id, robot.isCarrying) 
                 }).toMap.filter(_._2).size
+
+    override def shouldStop = state == State.Ended
+
+    def forceStop(): Unit = state = State.Ended
 
 class ReversibleIterator[T](underlying: Iterator[T]) extends Iterator[T] {
     private val buffer = mutable.Stack[T]()

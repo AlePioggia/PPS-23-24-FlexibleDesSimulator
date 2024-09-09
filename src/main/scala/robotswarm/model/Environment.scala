@@ -13,8 +13,7 @@ class RobotEnvironment(width: Int, height: Int) extends Environment(width: Int, 
     
     override def interactWithObject(agent: Agent): Unit = agent match
         case robot: Robot =>
-            if (robot.pos == robot.goal) then {robot.pickUp(); objectManager.removeObject(robot.pos); agentManager.removeAgent(robot); agentManager.agents.remove(robot);
-            println("Robots after removal: " + agentManager.agents.mkString(", "))
+            if (robot.pos == robot.goal) then {robot.pickUp(); objectManager.removeObject(robot.pos); agentManager.removeAgent(robot);
         }
         
     override def generateAgent(id: Int, pos: Position): Unit = 

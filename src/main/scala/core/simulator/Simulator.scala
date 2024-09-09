@@ -11,10 +11,11 @@ trait Event:
 trait Simulator:
     var currentStep: Int = 0
     var startTime: Long = System.currentTimeMillis()
-    var state: State = State.Stopped
+    var state: State = State.Running
     def schedule(event: Event): Unit
     def run(): Unit
     def step(): Unit
+    def shouldStop: Boolean
     def handleEvent(event: Event): Unit
     def getElapsedTime: Long
 
@@ -26,6 +27,7 @@ class BasicSimulator extends Simulator:
         eventQueue.enqueue(event)
     
     def run(): Unit = 
+        state = State.Running
         while eventQueue.nonEmpty do
             step()
 
@@ -40,10 +42,11 @@ class BasicSimulator extends Simulator:
     
     def handleEvent(event: Event): Unit = ()
 
-    def shouldStop: Boolean = false
+    def shouldStop: Boolean = state == State.Ended
 
     def updateStats(): Unit =
-        currentStep += 1
+        if state == State.Running then
+            currentStep += 1
 
     def getElapsedTime: Long =
         System.currentTimeMillis() - startTime

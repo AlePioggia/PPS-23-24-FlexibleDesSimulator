@@ -12,3 +12,5 @@ class PosController(environment: PosEnvironment, override val simulator: PosSimu
         simulator.schedule(AllPosMovesEvent(0, environment))
 
     def getResult(): (Position, Double) = (environment.globalBest, environment.globalBestFitness)
+
+    override def checkState(): Boolean = simulator.shouldStop

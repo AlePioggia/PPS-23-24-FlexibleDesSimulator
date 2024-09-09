@@ -28,6 +28,5 @@ object App:
         view.setVisible(true)
         controller.simulate(10)
         val result = controller.getResult()
-        println(s"Best position: ${result._1}, fitness: ${result._2}")
 
     

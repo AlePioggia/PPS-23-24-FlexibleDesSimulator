@@ -24,7 +24,7 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
     def initializeUI(): Unit = 
         setSize(800, 800)
         setLayout(new BorderLayout())
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE)
         gridPanel.setLayout(new GridLayout(environment.height, environment.width))
         add(gridPanel, BorderLayout.CENTER)
         setupStatsPanel()
@@ -76,5 +76,7 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
         updateCustomStats()
 
     def updateCustomStats(): Unit = ()
+
+    def showResult(): Unit = ()
 
 

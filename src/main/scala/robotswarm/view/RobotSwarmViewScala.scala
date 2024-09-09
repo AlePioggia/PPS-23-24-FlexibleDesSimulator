@@ -19,6 +19,9 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
   protected val pickedUpObjs: JLabel = new JLabel("Picked up objects: 0")
   val grayCells = scala.collection.mutable.Set[Position]()
   var i: Int = 0
+  var initialObjectsSize: Int = environment.objectManager.objsPosList.size
+  var isSimulationOver: Boolean = false
+
 
   override def updatePanel(cell: JPanel, pos: Position): JPanel =
     val robot = environment.agentManager.getAgentAt(pos).map(_.asInstanceOf[Robot])
@@ -40,6 +43,7 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
       case true => cell.setBackground(Color.GREEN)
       case false => ()
     }
+      
     cell
   
   override def customizeStatsPanel(): Unit = 
@@ -48,6 +52,9 @@ class RobotSwarmView(override val environment: RobotEnvironment, override val si
   override def updateCustomStats(): Unit = 
     pickupObjs.setText("Pickup objects: " + environment.objectManager.objsPosList.size)
     pickedUpObjs.setText("Picked up objects: " + simulator.getCurrentCarriedObjectsState(environment))
+
+  override def showResult(): Unit = 
+    JOptionPane.showMessageDialog(null, "Simulation is over. All objects have been picked up.", "Simulation Over", JOptionPane.INFORMATION_MESSAGE)
 
 
   

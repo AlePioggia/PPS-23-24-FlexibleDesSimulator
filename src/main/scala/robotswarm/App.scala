@@ -29,5 +29,5 @@ object App:
 
     controller.initialize()
     view.setVisible(true)
-    controller.simulate(100)
+    controller.simulateUntilStop()
 

@@ -27,6 +27,5 @@ object App:
         controller.initialize()
         view.setVisible(true)
         controller.simulate(10)
-        val result = controller.getResult()
 
     

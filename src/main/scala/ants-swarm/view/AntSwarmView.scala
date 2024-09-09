@@ -9,6 +9,7 @@ import antsswarm.model.Ant
 import javax.swing.JLabel
 import java.awt.Color
 import javax.swing.BorderFactory
+import javax.swing.JOptionPane
 
 class AntSwarmView(override val environment: AntsEnvironment, override val simulator: AntSwarmSimulator) extends View(environment, simulator):
 
@@ -39,5 +40,9 @@ class AntSwarmView(override val environment: AntsEnvironment, override val simul
 
     override def customizeStatsPanel(): Unit = 
         statsPanel.add(nestLabel)
+    
     override def updateCustomStats(): Unit = 
         nestLabel.setText("Nest: " + environment.nestPositions)
+    
+    override def showResult(): Unit = 
+        JOptionPane.showMessageDialog(null, "Simulation ended", "Simulation ended", JOptionPane.INFORMATION_MESSAGE)

@@ -41,4 +41,4 @@ object App:
 
         controller.initialize()
         view.setVisible(true)
-        controller.simulate(200)
+        controller.simulateUntilStop()

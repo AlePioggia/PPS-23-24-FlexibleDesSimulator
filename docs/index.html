@@ -135,6 +135,7 @@ code {
             <li><a href="#architectural-design">Architectural Design</a></li>
             <li><a href="#detailed-design">Detailed Design</a></li>
             <li><a href="#implementation">Implementation</a></li>
+            <li><a href="#userguide">User guide</a></li>
             <li><a href="#conclusions">Conclusions</a></li>
         </ul>
     </nav>
@@ -522,10 +523,71 @@ code {
             </ul>
 
         </section>
+
+        <section id="userguide">
+            <h2>User Guide</h2>
+            The application is very easy to use due to the simplicity of the graphical interface. At startup, the main menu is displayed, allowing you to choose between the three available simulations.
+        
+            <h3>Home</h3>
+        
+            <img src="guide_home.png" alt="home" style="width: 60%;">
+        
+            <h3>Robot Swarm</h3>
+        
+            By selecting the robot swarm simulation, a window will open where you need to enter the number of robots to use.
+        
+            <img src="guide_robot_par.png" alt="robotpar" style="width: 60%;">
+        
+            Once the number of robots is selected, the simulation will begin. The robots will move autonomously across the map, collecting objects.
+            The colored cells represent:
+            <ul>
+                <li><strong>Black</strong>: represent the robots;</li>
+                <li><strong>Green</strong>: represent the objects to be collected;</li>
+                <li><strong>Gray</strong>: represent the objects already collected;</li>
+            </ul>
+        
+            <img src="guide_robot_execution.png" alt="home" style="width: 80%;">
+        
+            <h3>Ants Swarm</h3>
+        
+            Similar to the previous case, here you also need to select a parameter, which represents the number of food units to be distributed across the map (the ants are selected by default).
+        
+            <img src="guide_ant_par.png" alt="home" style="width: 60%;">
+        
+            Once the simulation begins, the ants will move autonomously across the map, collecting food and bringing it back to their bases, following pheromone trails.
+            The numerical values on the map represent the pheromone released by the ants.
+            The colored cells represent:
+            <ul>
+                <li><strong>Black</strong>: represent the ants;</li>
+                <li><strong>Red</strong>: represent the food to be collected;</li>
+            </ul>
+        
+            <img src="guide_ant_execution.png" alt="home" style="width: 80%;">
+        
+            <h3>Particle Swarm Optimization</h3>
+        
+            The required parameters are as follows:
+            <ul>
+                <li><strong>Agents' number</strong>: the number of particles (or agents) involved in the optimization;</li>
+                <li><strong>w</strong>: inertia factor, which controls how much of the previous velocity is retained in the particle’s movement;</li>
+                <li><strong>c1</strong>: cognitive component, representing the weight given to the particle’s own experience or knowledge (how much it is influenced by its personal best position);</li>
+                <li><strong>c2</strong>: social component, representing the influence of the swarm or the global best position found by other particles (how much the particle is influenced by the best solution found by the group);</li>
+            </ul>
+        
+            <img src="guide_pos_par.png" alt="home" style="width: 80%;">
+        </section>
+        
         
         <section id="conclusions">
             <h2>Conclusions</h2>
-            <p>This is the conclusions section.</p>
+            In my opinion, the project turned out to be very interesting, and I did not encounter any particular difficulties during its implementation. Scala has been very helpful in this regard.
+            The results obtained are satisfactory but could be improved through:
+            <ul>
+                <li>the use of reactive frameworks to manage multithreaded aspects, improving performance;</li>
+                <li>the development of a more complete and customizable interface;</li>
+                <li>the introduction of monads for error handling;</li>
+                <li>the addition of further swarms or the improvement of the current ones.</li>
+            </ul>
         </section>
     </main>
 </body>

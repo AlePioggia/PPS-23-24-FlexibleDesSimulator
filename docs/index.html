@@ -370,7 +370,7 @@ code {
 
             This section aims to describe the detail design of the robot (robotswarm scope), which is perhaps the most complex agent, is explored in depth, in this regard.
             Key aspects of this design include the use of scala's traits for modularity, enums for type safety and companion objects for controlled object creation and incapsulation. The focus was to favour
-            flexibility and maintainability, allowing for easy extension and modification of the robot's behaviour.
+            flexibility and maintainability, allowing for easy extension and modification of the robot's behavior.
 
             <img src="detailed_robot.png" alt="robot architecture" style="width: 50%; height: 50%">
 
@@ -383,7 +383,7 @@ code {
 
             The Robot trait is composed of multiple traits, each responsible for a specific aspect of the robot's functionality. The baseRobot trait implements basic robot functionalities, by extending the Robot trait. This trait 
             is intended to be used by other traits or classes to provide a foundation without needing to duplicate the implementation. 
-            The batteryPowered trait adds complexity, by expliciting battery management. By using abstract override it extends the behaviour of the move method.
+            The batteryPowered trait adds complexity, by explicating battery management. By using abstract override it extends the behaviour of the move method.
 
             <h4>Design patters used</h4>
 
@@ -463,7 +463,7 @@ code {
             <h4>Algorithm</h4>
             <ul>
                 <li>Initialize the starting node with a gScore of 0 and an fscore of +infinite, based on the Manhattan distance to the goal;</li>
-                <li>continuosly dequeue the node with the lowest fscore from the openSet and check if it is the goal node;</li>
+                <li>continuously dequeue the node with the lowest fscore from the openSet and check if it is the goal node;</li>
                 <li>for each neighbor of the current node, if it isn't an obstacle, calculate the tentative gscore and update it if the new path is shorter;</li>
                 <li>update the cameFrom, gScore and fScore maps accordingly and add the neighbor to the openSet if it's not already present.</li>
             </ul>
@@ -536,7 +536,7 @@ code {
         
             By selecting the robot swarm simulation, a window will open where you need to enter the number of robots to use.
         
-            <img src="guide_robot_par.png" alt="robotpar" style="width: 40%; height: 40%">
+            <img src="guide_robot_par.png" alt="robot_par" style="width: 40%; height: 40%">
         
             Once the number of robots is selected, the simulation will begin. The robots will move autonomously across the map, collecting objects.
             The colored cells represent:
@@ -546,13 +546,13 @@ code {
                 <li><strong>Gray</strong>: represent the objects already collected;</li>
             </ul>
         
-            <img src="guide_robot_execution.png" alt="home" style="width: 60%;">
+            <img src="guide_robot_execution.png" alt="robot_execution" style="width: 60%;">
         
             <h3>Ants Swarm</h3>
         
             Similar to the previous case, here you also need to select a parameter, which represents the number of food units to be distributed across the map (the ants are selected by default).
         
-            <img src="guide_ant_par.png" alt="home" style="width: 40%;">
+            <img src="guide_ant_par.png" alt="ant_par" style="width: 40%;">
         
             Once the simulation begins, the ants will move autonomously across the map, collecting food and bringing it back to their bases, following pheromone trails.
             The numerical values on the map represent the pheromone released by the ants.
@@ -562,7 +562,7 @@ code {
                 <li><strong>Red</strong>: represent the food to be collected;</li>
             </ul>
         
-            <img src="guide_ant_execution.png" alt="home" style="width: 60%;">
+            <img src="guide_ant_execution.png" alt="ant_execution" style="width: 60%;">
         
             <h3>Particle Swarm Optimization</h3>
         
@@ -574,7 +574,7 @@ code {
                 <li><strong>c2</strong>: social component, representing the influence of the swarm or the global best position found by other particles (how much the particle is influenced by the best solution found by the group);</li>
             </ul>
         
-            <img src="guide_pos_par.png" alt="home" style="width: 40%;">
+            <img src="guide_pos_par.png" alt="pos_par" style="width: 40%;">
         </section>
         
         

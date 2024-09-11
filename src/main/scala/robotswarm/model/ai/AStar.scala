@@ -10,23 +10,23 @@ import robotswarm.model.RobotEnvironment
 object AStar:
     def findPath(start: Position, goal: Position, environment: RobotEnvironment): List[Direction] =
         val openSet = mutable.PriorityQueue.empty[Node](Ordering.by(-_.f))
-        val cameFrom = mutable.Map[Position, Position]()
+        val cameFrom = mutable.Map[Position, Position]() // tracks the path
         val gScore = mutable.Map[Position, Double]().withDefaultValue(Double.PositiveInfinity)
-        val fScore = mutable.Map[Position, Double]().withDefaultValue(Double.PositiveInfinity)
+        val fScore = mutable.Map[Position, Double]().withDefaultValue(Double.PositiveInfinity) // total cost for reaching a node (g + heuristic)
         
         gScore(start) = 0
         fScore(start) = manhattanDistance(start, goal)
         openSet.enqueue(Node(start, 0, fScore(start)))
 
         while openSet.nonEmpty do
-            val current = openSet.dequeue().position
+            val current = openSet.dequeue().position // gets set with lowest fScore
 
             if current == goal then
                 return reconstructPath(cameFrom, current)
 
             for neighbor <- environment.neighbors(current) do
                 if !environment.isObstacle(neighbor, goal) then
-                    val tentativeGScore = gScore(current) + 1
+                    val tentativeGScore = gScore(current) + 1 // gscore aumented, because it's needed to reach neighbor
                     if tentativeGScore < gScore(neighbor) then
                         cameFrom(neighbor) = current
                         gScore(neighbor) = tentativeGScore

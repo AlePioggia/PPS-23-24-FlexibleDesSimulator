@@ -20,6 +20,7 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
     protected val timerLabel: JLabel = new JLabel("Time: 0")
     protected val stepLabel: JLabel = new JLabel("Steps: 0")
     protected val agentsLabel: JLabel = new JLabel("Agents: 0")
+    private var onWindowClosing: Option[() => Unit] = None
 
     def initializeUI(): Unit = 
         setSize(800, 800)
@@ -28,6 +29,12 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
         gridPanel.setLayout(new GridLayout(environment.height, environment.width))
         add(gridPanel, BorderLayout.CENTER)
         setupStatsPanel()
+
+        addWindowListener(new java.awt.event.WindowAdapter {
+            override def windowClosing(e: java.awt.event.WindowEvent): Unit = 
+                onWindowClosing.foreach(callback => callback())
+                dispose()
+        })
 
     def setupStatsPanel(): Unit = 
         statsPanel.setLayout(new GridLayout(4, 1))
@@ -78,5 +85,7 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
     def updateCustomStats(): Unit = ()
 
     def showResult(): Unit = ()
+
+    def setOnWindowsClosing(callback: () => Unit): Unit = onWindowClosing = Some(callback)
 
 

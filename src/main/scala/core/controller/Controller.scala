@@ -12,9 +12,12 @@ class BaseEvent extends Event:
     def time: Double = 0.0
 
 class Controller(var environment: Environment, val simulator: Simulator, val view: View):
+    var shouldContinue: Boolean = true
+
     def initialize(): Unit =
         view.initializeUI()
         view.drawGrid()
+        view.setOnWindowsClosing(() => shouldContinue = false)
 
     def simulate(n: Int): Unit =
         @tailrec
@@ -41,6 +44,7 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
                     _ <- Some(simulator.step())
                     _ <- Some(view.drawGrid())
                     _ <- Some(if checkState() then {simulator.state = State.Ended; view.showResult(); view.dispose();})
+                    _ <- Some(if !shouldContinue then {simulator.state = State.Ended; view.dispose();})
                     _ <- Some(Thread.sleep(1000)) 
                 yield ()
                 simulateStep() 

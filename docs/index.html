@@ -136,6 +136,7 @@ code {
             <li><a href="#detailed-design">Detailed Design</a></li>
             <li><a href="#implementation">Implementation</a></li>
             <li><a href="#userguide">User guide</a></li>
+            <li><a href="#prolog">Prolog</a></li>
             <li><a href="#conclusions">Conclusions</a></li>
         </ul>
     </nav>
@@ -577,7 +578,17 @@ code {
             <img src="guide_pos_par.png" alt="pos_par" style="width: 40%;">
         </section>
         
-        
+        <section id="prolog">
+            <h3>Prolog</h3>
+            This project features an alternative findpath implementation, developed in prolog. The following code, shows how can the right path, for an agent,
+            can be found, by using the DFS algorithm. The code is very simple and straightforward, and returns the path as a list of coordinates.
+            
+            <img src="prolog_code.png" alt="prolog_code" style="width: 80%;">
+
+            As we can see, the code takes an NxN matrix as input, where 0 represents a free cell and 1 an obstacle. Starting and target positions are also passed as input.
+
+        </section>
+
         <section id="conclusions">
             <h2>Conclusions</h2>
             In my opinion, the project turned out to be very interesting, and I did not encounter any particular difficulties during its implementation. Scala has been very helpful in this regard.

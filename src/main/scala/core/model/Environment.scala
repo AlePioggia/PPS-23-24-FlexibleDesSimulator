@@ -38,28 +38,32 @@ class Environment(val width: Int, val height: Int) extends Grid:
         )
         neighbors.filter(agentManager.isPositionValid)
 
-
-    def populateGrid(n: Int): Position =
-        if n > (width * height) - (agentManager.agents.size + objectManager.objsPosList.size) then throw new IllegalArgumentException("Too many objects") 
-        if n == 0 then return Position(0, 0)
-        val random = new scala.util.Random
-        var (x, y) = generateRandomCoordinates()
-        while agentManager.getAgentAt(Position(x, y)).isDefined || objectManager.isObjectAt(Position(x, y)) do
-            x = random.nextInt(width)
-            y = random.nextInt(height)
-        Position(x, y)
+    def populateGrid(): Option[Position] =
+        if agentManager.agents.size + objectManager.objsPosList.size >= width * height then
+            None
+        else
+            val random = new scala.util.Random
+            var (x, y) = generateRandomCoordinates()
+            while agentManager.getAgentAt(Position(x, y)).isDefined || objectManager.isObjectAt(Position(x, y)) do
+                x = random.nextInt(width)
+                y = random.nextInt(height)
+            Some(Position(x, y))
 
     def placeRandomPickupObjs(n: Int): Unit =
-        val pos: Position = populateGrid(n)
-        if pos.x == 0 && pos.y == 0 then return
-        objectManager.addObject(pos)
-        placeRandomPickupObjs(n - 1)
+        if n == 0 then return
+        populateGrid() match
+            case Some(pos) =>
+                objectManager.addObject(pos)
+                placeRandomPickupObjs(n - 1)
+            case None => return
 
-    def placeRandomAgents(n: Int, acc: Int): Unit = 
-        val pos: Position = populateGrid(n)
-        if pos.x == 0 && pos.y ==  0 then return
-        generateAgent(acc, pos)
-        placeRandomAgents(n - 1, acc + 1)
+    def placeRandomAgents(n: Int, acc: Int): Unit =
+        if n == 0 then return
+        populateGrid() match
+            case Some(pos) =>
+                generateAgent(acc, pos)
+                placeRandomAgents(n - 1, acc + 1)
+            case None => return
 
     def generateAgent(id: Int, pos: Position): Unit = ()
 

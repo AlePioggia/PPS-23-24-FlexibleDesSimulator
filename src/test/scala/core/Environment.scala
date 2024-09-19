@@ -46,9 +46,8 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
 
     it should "refuse to place more objects than the grid can hold" in {
         val env = new Environment(10, 10)
-        assertThrows[IllegalArgumentException] {
-            env.placeRandomPickupObjs(101)
-        }
+        env.placeRandomPickupObjs(101)
+        env.objectManager.objsPosList.size should be (100)
     }
 }
 

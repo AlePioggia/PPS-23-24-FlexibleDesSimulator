@@ -43,8 +43,7 @@ class EnvironmentSpec extends AnyFlatSpec with Matchers {
 
     it should "refuse to place more agents than the grid can hold" in {
         val env = new RobotEnvironment(10, 10)
-        assertThrows[IllegalArgumentException] {
-            env.placeRandomAgents(101, 1)
-        }
+        env.placeRandomAgents(101, 1)
+        env.agentManager.agents.size should be (100)
     }
 }

@@ -6,6 +6,7 @@ import utils.Position
 import utils.Direction
 import scala.util.Random
 import core.model.Grid
+import utils.Constants
 
 class AntsEnvironment (width: Int, height: Int) extends Environment (width, height) with Grid:
     val pheromoneManager = PheromoneManager(width, height)
@@ -22,8 +23,8 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
     
     override def postMoveActions(agent: Agent): Unit =
         objectManager.removeObject(agent.pos)
-        pheromoneManager.evaporatePheromones(0.1)
-        pheromoneManager.increasePheromone(agent.pos, 0.5, agent.id)
+        pheromoneManager.evaporatePheromones(Constants.PheromoneEvaporationRate)
+        pheromoneManager.increasePheromone(agent.pos, Constants.PheromoneDiffusionRate, agent.id)
 
     def nestPositions: Set[Position] = agentManager.agents.map(agent => agent match {case ant: Ant => ant.nestPos}).toSet
 
@@ -35,19 +36,14 @@ class AntsEnvironment (width: Int, height: Int) extends Environment (width, heig
             ant.carryingFood = false
             moveToFood(ant)
         else 
-            val nextDirection = 
-                if pos.x > nestPos.x then Direction.West
-                else if pos.x < nestPos.x then Direction.East
-                else if pos.y > nestPos.y then Direction.North
-                else if pos.y < nestPos.y then Direction.South
-                else Direction.Still
+            val nextDirection = Direction.directionFrom(pos, nestPos)
 
             nextDirection.nextPosition(pos)
     
     private def moveToFood(ant: Ant): Position = 
         val n = neighbors(ant.pos)
         if n.isEmpty then return ant.pos
-        if (Random.nextDouble() < 0.3)
+        if (Random.nextDouble() < Constants.RandomMoveProbability)
             n(Random.nextInt(n.size))
         else
             neighbors(ant.pos)

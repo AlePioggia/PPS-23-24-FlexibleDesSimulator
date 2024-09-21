@@ -27,13 +27,14 @@ class PosEnvironment(width: Int, height: Int)(fitnessFunction: Position => Doubl
 
                 var targetPos = Position(particle.pos.x + particle.velocity.x, particle.pos.y + particle.velocity.y)
 
-                while !agentManager.isPositionValid(targetPos) do
-                    targetPos = PositionUtils.boundPosition(Position(
-                        particle.pos.x + scala.util.Random.nextInt(3) - 1, 
-                        particle.pos.y + scala.util.Random.nextInt(3) - 1
-                    ), width, height)
+                findValidPosition(targetPos, particle)
 
-                targetPos
+    private def findValidPosition(pos: Position, particle: Particle): Position =
+        if agentManager.isPositionValid(pos) then return pos
+        else findValidPosition(PositionUtils.boundPosition(Position(
+            particle.pos.x + scala.util.Random.nextInt(3) - 1, 
+            particle.pos.y + scala.util.Random.nextInt(3) - 1
+        ), width, height), particle)
 
     def setup(n: Int): Unit = setupParticles(n, Set.empty, 0)
 

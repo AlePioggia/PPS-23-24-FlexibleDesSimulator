@@ -17,7 +17,7 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
     def initialize(): Unit =
         view.initializeUI()
         view.drawGrid()
-        view.setOnWindowsClosing(() => shouldContinue = false)
+        view.setOnWindowsClosing(() => {shouldContinue = false})
 
     def simulate(n: Int): Unit =
         @tailrec
@@ -43,7 +43,7 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
                     _ <- Some(schedule())
                     _ <- Some(simulator.step())
                     _ <- Some(view.drawGrid())
-                    _ <- Some(if checkState() then {simulator.state = State.Ended; view.showResult(); view.dispose();})
+                    _ <- Some(if checkState() then {simulator.state = State.Ended; view.timer.stop(); view.showResult(); view.dispose();})
                     _ <- Some(if !shouldContinue then {simulator.state = State.Ended; view.dispose();})
                     _ <- Some(Thread.sleep(1000)) 
                 yield ()

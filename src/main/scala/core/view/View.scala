@@ -21,6 +21,7 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
     protected val stepLabel: JLabel = new JLabel("Steps: 0")
     protected val agentsLabel: JLabel = new JLabel("Agents: 0")
     private var onWindowClosing: Option[() => Unit] = None
+    var timer: Timer = _
 
     def initializeUI(): Unit = 
         setSize(800, 800)
@@ -44,7 +45,7 @@ class View (val environment: Environment, val simulator: Simulator) extends JFra
         customizeStatsPanel()
         add(statsPanel, BorderLayout.NORTH)
 
-        val timer = new Timer(1000, new ActionListener {
+        timer = new Timer(1000, new ActionListener {
             def actionPerformed(e: ActionEvent): Unit = updateStats()
         })
         timer.start()

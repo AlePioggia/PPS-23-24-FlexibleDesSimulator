@@ -17,7 +17,7 @@ object App:
 
         val params = POSParams.builder().withW(w).withC1(c1).withC2(c2).withRandomR1().withRandomR2().build()
         val environment: PosEnvironment = PosEnvironment(10, 10)(fitnessFunction)(params)
-        val simulator = PosSimulator()
+        val simulator = new PosSimulator
 
         environment.setup(n)
         

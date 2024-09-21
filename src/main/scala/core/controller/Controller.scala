@@ -22,6 +22,7 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
     def simulate(n: Int): Unit =
         @tailrec
         def simulateStep(remainingSteps: Int): Unit =
+            simulator.state = State.Running
             if remainingSteps > 0 then
                 for
                     _ <- Some(simulator.step())
@@ -32,6 +33,8 @@ class Controller(var environment: Environment, val simulator: Simulator, val vie
                 simulateStep(remainingSteps - 1)
         
         simulateStep(n)
+        simulator.state = State.Ended
+        view.timer.stop()
         view.showResult()
         view.dispose()
 
